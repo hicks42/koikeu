@@ -1,0 +1,9 @@
+.vich-image{ 
+    .form-check{
+      @extend .mt-3;
+  }
+  
+    img {
+      @extend .mb-2, .rounded, .shadow, .img-thumbnail;  
+  }
+  }

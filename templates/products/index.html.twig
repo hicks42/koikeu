@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur koikeu.fr{% endblock %}
+
+{% block body %}
+{% if produits|length > 0 %}
+    <h1>Voici les {{ pluralize(produits|length, 'produit') }} de la gamme {{(category) }} </h1>
+
+    {% for row in produits|batch(3) %}
+        <div class="row mb-5">
+            {% for produit in row %}
+                <div class="col-md-4"> 
+                    <article class="product-card">
+                        <div class="product-image">
+                            <a href=" {{ path('app_produits_show', {id:produit.id}) }} "><img src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ produit.name }}"/></a>
+                        </div>
+                        <div class="product-info">
+                            <h2><a href="{{ path('app_produits_show', {id: produit.id}) }}">{{ produit.name }}</a></h2>
+                            <p class="product-description"><small>{{ produit.description|u.truncate(25, ' ...', false) }}</small></p>
+                            <p class="product-price">{{ produit.price }} €</p>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    {% else %}
+		<p class="h1 mt-5 text-align:center">Pas encore de produit</p>
+		<p class="h4 mt-5 text-center"><a href={{ path ('app_produits_create') }}>Créez le 1er.</a></p>
+	{% endif %}
+{% endblock %}
+{#   | imagine_filter('square_thumbnail_medium')  #}

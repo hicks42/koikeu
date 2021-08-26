@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{produit.name}} {% endblock %}
+
+{% block body %}
+	<div class="">
+		<article class="column">
+            <div class="product-show">
+                <div class="show-image">
+                        <img src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) }}" alt="{{ produit.name }}"/>
+                </div>
+                <div class="show-info">
+                    <h1 class="show">{{ produit.name }}</h1>
+                    <p class="product-description"><small>{{ produit.description }}</small></p>
+                    <p class="product-price">{{ produit.price }} €</p>
+                </div>
+            </div>
+            <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>
+            {% if is_granted('PRODUIT_MANAGE', produit)%}
+                <a href=" {{ path('app_produits_edit', {id: produit.id}) }} " class="btn btn btn-outline-secondary m-2">Modifier</a>
+                <a href="#" class="btn btn-danger m-3"  onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-produit-delete-form-{{produit.id}}').submit();">&times; Delete</a>
+                <form id="js-produit-delete-form-{{produit.id}}" action="{{ path('app_produits_delete', {id:produit.id}) }}" method="POST" style="display:none;">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token('produit_deletion_' ~ produit.id)}}">
+                    <input type="hidden" name="_method" value="DELETE">
+            </form>
+            {% endif %}
+        </article>
+    </div>
+{% endblock %}
+{#  | imagine_filter('square_thumbnail_medium')  #}

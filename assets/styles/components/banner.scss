@@ -1,0 +1,43 @@
+.banner {
+    background-color: $color-1;
+    color: #fff;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.banner-brand {
+    text-decoration: none;
+    color: #fff;
+    font-size: 4rem;
+    font-family: $logo-font;
+    &:hover{
+        color: $color-2;
+    }
+}
+
+.banner .container {
+    all: unset;
+    text-align: center;
+}
+
+.banner > .container > .menu a {
+    color: $color-3;
+    &:hover{
+        color: $color-12;
+    }
+}
+
+@media only screen and ( min-width : 800px ){
+    .banner .container {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+    }
+    .presentation {
+        text-align: left;
+    }
+}

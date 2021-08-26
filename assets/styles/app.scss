@@ -1,0 +1,45 @@
+@import "~bootstrap/scss/bootstrap";
+
+@import 'shared/variables';
+@import 'components/card';
+@import 'components/form';
+@import 'components/show';
+@import 'components/container';
+@import 'components/navbar';
+@import 'components/banner';
+@import 'jquery.jqZoom';
+
+
+
+html, body {
+  font-family: $primary-font, sans-serif;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+// body > #bg {
+//   height: 100%;
+//   width: 100%;
+//   background-color: $color-1;
+//   clip-path: circle(50% at 50% 50%);
+//   position: absolute;
+//   z-index: 10;
+// }
+
+.alert {
+  padding: 10;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 0;
+
+  &.alert-success {
+    background-color: green;
+  }
+  &.alert-error {
+    background-color: red;
+  }
+  &.alert-info {
+    background-color: blue;
+  }
+}

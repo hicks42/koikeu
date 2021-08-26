@@ -1,0 +1,7 @@
+<div class="categories-nav">
+	{% for category in categories %}
+		<div class="categories-item">
+			<a class="categories-link" href="{{ path('app_produits_by_category', {category: category.name}) }}">{{ category.name }}</i></a>
+		</div>
+	{% endfor %}
+</div>
