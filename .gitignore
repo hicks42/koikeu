@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -18,6 +17,12 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+###> custom ###
+/public/images/
+###< custom ###
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
@@ -25,10 +30,3 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
-
-###> custom ###
-/public/images/
-###< custom ###
-###> liip/imagine-bundle ###
-/public/media/cache/
-###< liip/imagine-bundle ###

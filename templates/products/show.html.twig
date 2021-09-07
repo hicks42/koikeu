@@ -1,30 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} {{produit.name}} {% endblock %}
+{% block head %}
+	{{ parent() }}
+<script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+{% endblock %}
 
 {% block body %}
-	<div class="">
-		<article class="column">
-            <div class="product-show">
-                <div class="show-image">
-                        <img src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) }}" alt="{{ produit.name }}"/>
-                </div>
-                <div class="show-info">
-                    <h1 class="show">{{ produit.name }}</h1>
-                    <p class="product-description"><small>{{ produit.description }}</small></p>
-                    <p class="product-price">{{ produit.price }} €</p>
-                </div>
+  <div class="center_column col-xs-6 col-sm-12">
+
+    <article class="show-article">
+      <div class="content-wrapper">
+        <div class="column">
+          <div id="img-container" style="width: 400px">
+            <img class="grd-image" src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) }}" alt="{{ produit.name }}"/>
+          </div>
+          <div id="slide-wrapper">
+            <img id="slideLeft" class="arrow" src="/images/arrow-left.png">
+            <div id="slider">
+              <img class="thumbnail active" src="/images/shoe1.jpg">
+              <img class="thumbnail" src="/images/shoe2.jpg">
+              <img class="thumbnail" src="/images/shoe3.jpg">
             </div>
-            <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>
-            {% if is_granted('PRODUIT_MANAGE', produit)%}
-                <a href=" {{ path('app_produits_edit', {id: produit.id}) }} " class="btn btn btn-outline-secondary m-2">Modifier</a>
-                <a href="#" class="btn btn-danger m-2"  onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-produit-delete-form-{{produit.id}}').submit();">&times; Effacer</a>
-                <form id="js-produit-delete-form-{{produit.id}}" action="{{ path('app_produits_delete', {id:produit.id}) }}" method="POST" style="display:none;">
-                    <input type="hidden" name="csrf_token" value="{{csrf_token('produit_deletion_' ~ produit.id)}}">
-                    <input type="hidden" name="_method" value="DELETE">
-            </form>
-            {% endif %}
-        </article>
-    </div>
+            <img id="slideRight" class="arrow" src="/images/arrow-right.png">
+          </div>
+        </div>
+      </div>
+      <div class="show-info">
+        <h1 class="show">{{ produit.name }}</h1>
+        <p class="product-description"><small>{{ produit.description }}</small></p>
+        <p class="product-price">{{ produit.price }} €</p>
+      </div>
+    </article>
+    <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>
+    {% if is_granted('PRODUIT_MANAGE', produit)%}
+      <a href=" {{ path('app_produits_edit', {id: produit.id}) }} " class="btn btn btn-outline-secondary m-2">Modifier</a>
+      <a href="#" class="btn btn-danger m-2"  onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-produit-delete-form-{{produit.id}}').submit();">&times; Effacer</a>
+      <form id="js-produit-delete-form-{{produit.id}}" action="{{ path('app_produits_delete', {id:produit.id}) }}" method="POST" style="display:none;">
+        <input type="hidden" name="csrf_token" value="{{csrf_token('produit_deletion_' ~ produit.id)}}">
+        <input type="hidden" name="_method" value="DELETE">
+      </form>
+    {% endif %}
+
+  </div>
 {% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+  {{ encore_entry_script_tags('js_img_zoom_params') }}
+{% endblock %}
+
 {#  | imagine_filter('square_thumbnail_medium')  #}

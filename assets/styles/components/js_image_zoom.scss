@@ -1,0 +1,43 @@
+.show-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+#img-container{
+  z-index: 1;
+  max-width: 400px;
+  position: relative;
+  border: 0px;
+  border-radius: 5px;
+}
+
+.grd-image {
+  width: 400px;
+}
+
+// #lens{
+// 	z-index: 2;
+// 	position: absolute;
+
+// 	height: 125px;
+// 	width: 125px;
+// 	border:2px solid rgb(255, 255, 255);
+//   border-radius: 50%;
+// 	background-repeat: no-repeat;
+// 	cursor: none;
+
+// }
+
+.js-image-zoom__zoomed-area {
+  max-height: 300px;
+  visibility: collapse;
+}
+
+
+@media only screen and ( min-width : 800px ){
+    .js-image-zoom__zoomed-area {
+    max-height: 300px;
+    left: -100px;
+  }
+
+}
