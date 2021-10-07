@@ -15,7 +15,7 @@ import { tooltip, Toast, Popover } from 'bootstrap';
 
 // import './js/image_zoom';
 // import './js/js_image_zoom';
-import './js/thumbnail_slider';
+// import './js/thumbnail_slider';
 
 $(".custom-file-input").on("change", function (e) {
   var inputFile = e.currentTarget;

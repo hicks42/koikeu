@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Entity\ProductImage;
 use App\Entity\Category;
 use App\Form\ProduitType;
 use App\Repository\UserRepository;
@@ -28,27 +29,27 @@ class ProductsController extends AbstractController
         $produits = $produitRepository->findBy([], ['createdAt' => 'DESC']);
         return $this->render('products/index.html.twig', compact('produits'));
     }
-    
+
     /**
      * @Route("/create", name="app_produits_create", methods={"GET|POST"})
      * @Security("is_granted('ROLE_USER') and user.isVerified()")
      */
     public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo): Response
     {
-        $produit = new Produit;    
-        $form = $this->createForm(ProduitType::class, $produit);        
+        $produit = new Produit;
+        $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()){
             $produit->setUser($this->getUser());
             $em->persist($produit);
             $em->flush();
-    
+
             $this->addFlash('success', 'Le nouveau produit a été enregistré');
-    
+
             return $this->redirectToRoute('app_produits_show', ['id' => $produit->getId()]);
         }
-        
+
         return $this->render('products/create.html.twig', [
             'form' => $form->createView()
         ]);
@@ -73,17 +74,17 @@ class ProductsController extends AbstractController
         $form = $this->createForm(ProduitType::class, $produit, [
             'method' => 'PUT'
         ]);
-    
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
         $em->flush();
-        
+
         $this->addFlash('success', 'Le produit a été modifié');
 
         return $this->redirectToRoute('app_home');
         }
-    
+
         return $this->render('products/edit.html.twig', [
             'produit' => $produit,
             'form' => $form->createView()

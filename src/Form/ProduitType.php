@@ -12,36 +12,36 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProduitType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('imageFile', VichImageType::class, [
-                'label'=>'Image',
-                'required' => false,
-                'allow_delete' => true,
-                'delete_label' => 'Supprimer l\'image',
-                'download_label' => 'Télécharger',
-                'download_uri' => false,
-                'image_uri' => true,
-                'imagine_pattern' => 'square_thumbnail_small',
-                'asset_helper' => true,
-            ])
-            ->add('name')
-            ->add('description')
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => function ($category) {
-                    return $category->getName();
-                }
-            ])
-            ->add('price')
-        ;
-    }
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+    $builder
+      ->add('imageFiles', VichImageType::class, [
+        'label' => 'Image',
+        'required' => false,
+        'allow_delete' => true,
+        'delete_label' => 'Supprimer l\'image',
+        'download_label' => 'Télécharger',
+        'download_uri' => false,
+        'image_uri' => true,
+        'imagine_pattern' => 'square_thumbnail_small',
+        'asset_helper' => true,
+        'multiple' => true,
+      ])
+      ->add('name')
+      ->add('description')
+      ->add('category', EntityType::class, [
+        'class' => Category::class,
+        'choice_label' => function ($category) {
+          return $category->getName();
+        }
+      ])
+      ->add('price');
+  }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Produit::class,
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver)
+  {
+    $resolver->setDefaults([
+      'data_class' => Produit::class,
+    ]);
+  }
 }

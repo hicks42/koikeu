@@ -27,7 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * 
+     *
      */
     private $id;
 
@@ -45,14 +45,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->id;
     }
-    
+
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="Please enter your email")
      * @Assert\Email(message="Please enter a valid e-mail")
      */
     private $email;
-    
+
     /**
      * @ORM\Column(type="json")
      */
@@ -229,7 +229,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
+
     public function getFullName(): ?string
     {
         $fullName = $this->firstName . ' ' . $this->lastName;
@@ -239,5 +239,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getGravatarUrl(?int $size = 200)
     {
         return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($this->getEmail()))) . "&s=" . $size;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
     }
 }

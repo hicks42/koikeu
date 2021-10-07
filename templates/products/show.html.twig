@@ -3,7 +3,13 @@
 {% block title %} {{produit.name}} {% endblock %}
 {% block head %}
 	{{ parent() }}
-<script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
+  <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" ></script>
+  {% block javascripts %}
+    {{ parent() }}
+    {# {{ encore_entry_script_tags('js_image_zoom') }} #}
+    {{ encore_entry_script_tags('js_img_zoom_params') }}
+    {{ encore_entry_script_tags('thumbnail_slider') }}
+  {% endblock javascripts %}
 {% endblock %}
 
 {% block body %}
@@ -43,10 +49,6 @@
     {% endif %}
 
   </div>
-{% endblock %}
-{% block javascripts %}
-	{{ parent() }}
-  {{ encore_entry_script_tags('js_img_zoom_params') }}
 {% endblock %}
 
 {#  | imagine_filter('square_thumbnail_medium')  #}
