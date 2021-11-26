@@ -4,4 +4,11 @@
 
 app_home:
     path:       /
-    controller: App\Controller\CategoryController::homepage
+    controller: App\Controller\NavController::homepage
+
+app_categories:
+    path:       /categories
+    controller: App\Controller\CategoryController::categoriesIndex
+
+app_test:
+    path:       /test/demo

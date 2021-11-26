@@ -1,9 +1,11 @@
 .column {
     min-width: 400px;
     margin: 1em auto;
+    display: flex;
+    flex-direction: column;
 }
 
-.product-show {
+.produit-show {
     display: flex;
     flex-direction: column;
     margin: 15px auto;
@@ -50,7 +52,7 @@
         justify-content: space-between;
     }
 
-    .product-show{
+    .produit-show{
         width: 100%;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -70,8 +72,4 @@
     //     flex-grow: 1;
     //     min-width: 300px;
     // }
-
-    .grd-image {
-        width: 300px;
-    }
 }

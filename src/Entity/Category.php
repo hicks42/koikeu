@@ -44,7 +44,7 @@ class Category
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
      * @Assert\Image(maxSize="8M", maxSizeMessage="Le fichier est trop gros")
      * @var File|null
@@ -54,6 +54,11 @@ class Category
     public function __construct()
     {
         $this->produit_id = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     public function getId(): ?int
@@ -103,7 +108,7 @@ class Category
         return $this;
     }
 
-    
+
     public function getImageFile(): ?File
     {
         return $this->imageFile;

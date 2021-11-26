@@ -5,14 +5,14 @@
 {% block body %}
 	<div class="">
 		<article class="column">
-            <div class="product-show">
+            <div class="produit-show">
                 <div class="show-image">
                         <img src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) }}" alt="{{ produit.name }}"/>
                 </div>
                 <div class="show-info">
                     <h1 class="show">{{ produit.name }}</h1>
-                    <p class="product-description"><small>{{ produit.description }}</small></p>
-                    <p class="product-price">{{ produit.price }} €</p>
+                    <p class="produit-description"><small>{{ produit.description }}</small></p>
+                    <p class="produit-price">{{ produit.price }} €</p>
                 </div>
             </div>
             <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>

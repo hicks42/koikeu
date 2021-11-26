@@ -1,28 +1,218 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Category index{% endblock %}
-
-{% block body %}
-    <h1>Bienvenue</h1>
-    {% if categories|length > 0 %}
-        {% for row in categories|batch(3) %}
-            <div class="row mb-5">
-                {% for category in row %}
-                    <div class="col-md-4"> 
-                        <article class="product-card">
-                            <div class="product-image">
-                                <a href=" {{ path('app_produits_by_category', {category: category.name}) }} "><img src="{{ (category.imageName ? vich_uploader_asset(category) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ category.name }}"/></a>
-                            </div>
-                            <div class="product-info">
-                                <h2><a href="{{ path('app_produits_by_category', {category: category.name}) }}">{{ category.name }}</a></h2>
-                            </div>
-                        </article>
-                    </div>
-                {% endfor %}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+	<head>
+		{% block head %}
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta description="Décorations artisanales - Création de suspension en bois flottés et feuilles en macramé">
+			<title>
+				{% block title %}{% endblock %}
+			</title>
+			{% block stylesheets %}
+				{{ encore_entry_link_tags('app') }}
+			{% endblock stylesheets %}
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock javascripts %}
+		{% endblock head %}
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	</head>
+	<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Carousel</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
             </div>
-        {% endfor %}
-    {% else %}
-        <p class="h1 mt-5 text-align:center">Pas encore de categorie</p>
-        <p class="h4 mt-5 text-center"><a href={{ path ('category_create') }}>Créez la 1ere.</a></p>
-    {% endif %}
-{% endblock %}
+        </nav>
+    </header>
+		<main role="main">
+
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+	<div class="carousel-indicators">
+		<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+		<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+		<button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+	</div>
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+			<div class="container">
+				<div class="carousel-caption text-start">
+					<h1>Example headline.</h1>
+					<p>Some representative placeholder content for the first slide of the carousel.</p>
+					<p>
+						<a class="btn btn-lg btn-primary" href="#">Sign up today</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+			<div class="container">
+				<div class="carousel-caption">
+					<h1>Another example headline.</h1>
+					<p>Some representative placeholder content for the second slide of the carousel.</p>
+					<p>
+						<a class="btn btn-lg btn-primary" href="#">Learn more</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveaspectratio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+			<div class="container">
+				<div class="carousel-caption text-end">
+					<h1>One more for good measure.</h1>
+					<p>Some representative placeholder content for the third slide of this carousel.</p>
+					<p>
+						<a class="btn btn-lg btn-primary" href="#">Browse gallery</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>
+
+			<!-- Marketing messaging and featurettes
+			    ================================================== -->
+			<!-- Wrap the rest of the page in another container to center all the content. -->
+
+			<div
+				class="container marketing">
+
+				<!-- Three columns of text below the carousel -->
+				<div class="row">
+					<div class="col-lg-4">
+							<img src="./public/images/hp-produits.jpg"/>
+
+						<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+							<title>Placeholderss</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+						</svg>
+						<h2>Les produits</h2>
+						<p>liste de nos produits.</p>
+						<p>
+							<a class="btn btn-secondary" href="{{ path ('app_category_index') }}" role="button">Y aller &raquo;</a>
+						</p>
+					</div>
+					<!-- /.col-lg-4 -->
+					<div class="col-lg-4">
+						<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+							<title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+						</svg>
+						<h2>Heading</h2>
+						<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+						<p>
+							<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
+						</p>
+					</div>
+					<!-- /.col-lg-4 -->
+					<div class="col-lg-4">
+						<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+							<title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+						</svg>
+						<h2>Heading</h2>
+						<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+						<p>
+							<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
+						</p>
+					</div>
+					<!-- /.col-lg-4 -->
+				</div>
+				<!-- /.row -->
+
+
+				<!-- START THE FEATURETTES -->
+
+				<hr class="featurette-divider">
+
+				<div class="row featurette">
+					<div class="col-md-7">
+						<h2 class="featurette-heading">First featurette heading.
+							<span class="text-muted">It’ll blow your mind.</span>
+						</h2>
+						<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+					</div>
+					<div class="col-md-5">
+						<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500">
+							<title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+						</svg>
+					</div>
+				</div>
+
+				<hr class="featurette-divider">
+
+				<div class="row featurette">
+					<div class="col-md-7 order-md-2">
+						<h2 class="featurette-heading">Oh yeah, it’s that good.
+							<span class="text-muted">See for yourself.</span>
+						</h2>
+						<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+					</div>
+					<div class="col-md-5 order-md-1">
+						<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500">
+							<title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+						</svg>
+					</div>
+				</div>
+
+				<hr class="featurette-divider">
+
+				<div class="row featurette">
+					<div class="col-md-7">
+						<h2 class="featurette-heading">And lastly, this one.
+							<span class="text-muted">Checkmate.</span>
+						</h2>
+						<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+					</div>
+					<div class="col-md-5">
+						<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500">
+							<title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+						</svg>
+					</div>
+				</div>
+
+				<hr
+				class="featurette-divider">
+
+			<!-- /END THE FEATURETTES -->
+
+			</div>
+			<!-- /.container -->
+
+			<!-- FOOTER -->
+			{{ include('layout/partials/_footer.html.twig') }}
+		</main>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	</body>
+</html>

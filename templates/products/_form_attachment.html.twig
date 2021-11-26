@@ -1,0 +1,18 @@
+{% block _product_attachments_widget %}
+
+{{ dump(form.attachments)}}
+
+	<ul id="Imgs" class="Imgs"
+      data-index="{{ form.attachments|length > 0 ? form.attachments|last.vars.name + 1 : 0 }}"
+      data-prototype="{{ form_widget(form.attachments.vars.prototype)|e('html_attr') }}"
+      data-widget-attachments="{{ '<li></li>'|e }}"
+      {# data-widget-counter="{{ value|length }}"> #}
+
+		{% for key,productImageForm in form.children %}
+			{{ form_widget(productImageForm) }}
+		{% endfor %}
+
+	</ul>
+
+	{# <button type="button" class="add-another-collection-widget" data-list-selector="#produit-images-fields-list">Add another produit Image</button> #}
+{% endblock %}

@@ -17,21 +17,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class CategoryController extends AbstractController
 {
-    
-/**
- * @Route("/", name="category_index", methods={"GET"})
- */
-public function index(CategoryRepository $categoryRepository): Response
-{
-    return $this->render('category/index.html.twig', [
-        'categories' => $categoryRepository->findAll(),
-    ]);
-}
 
-    public function homepage(CategoryRepository $categoryRepository): Response
+    /**
+    * @Route("/index", name="app_category_index", methods={"GET"})
+    */
+    public function index(CategoryRepository $categoryRepository): Response
+    {
+        return $this->render('category/index.html.twig', [
+            'categories' => $categoryRepository->findAll(),
+        ]);
+    }
+
+    public function categoriesIndex(CategoryRepository $categoryRepository): Response
     {
         $categories= $categoryRepository->findBy([], ['name' => 'DESC']);
-        return $this->render('layout/homepage.html.twig', compact('categories'));
+        return $this->render('layout/categoriesIndex.html.twig', compact('categories'));
     }
 
     /**
@@ -80,7 +80,7 @@ public function index(CategoryRepository $categoryRepository): Response
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_categories');
         }
 
         return $this->render('category/edit.html.twig', [
@@ -101,6 +101,6 @@ public function index(CategoryRepository $categoryRepository): Response
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_categories');
     }
 }

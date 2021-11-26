@@ -1,9 +1,12 @@
 			<ul class="menu">
-				{% if app.user %} 
+				{% if app.user %}
 					<li class="menu-inline-item">
 						<a class="menu-link" href=" {{ path('app_account')}} ">{{ app.user.FullName }}</a>
-					</li> 
+					</li>
 					<li class="menu-inline-item">
+						<a class="menu-link" href="{{path('admin')}}"><i class="fas fa-tools"></i></a>
+					</li>
+					{# <li class="menu-inline-item">
 						<a class="menu-link" href="{{path('app_produits_create')}}">{{ source("/svg/box-plus-solid.svg") }}</a>
 					</li>
 					<li class="menu-inline-item">
@@ -11,7 +14,7 @@
 					</li>
 					<li class="menu-inline-item">
 						<a class="menu-link" href="#" onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();" ><i class="fas fa-sign-out-alt"></i></a>
-					</li>
+					</li> #}
 					<form id="js-logout-form" action=" {{path('app_logout')}} " method="POST" style="display: none;">
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
 					</form>
@@ -21,13 +24,13 @@
 					</li>
 				{% endif %}
 				{% if is_granted('ROLE_ADMIN') %}
-					<li class="menu-inline-item">
+					{# <li class="menu-inline-item">
 						<a class="menu-link" href=" {{ path('app_user')}} "><i class="fas fa-users-cog"></i></a>
 					</li>
 					<li class="menu-inline-item">
 						<a class="menu-link" href="{{path('app_register')}}"><i class="fas fa-user-plus"></i><a>
-					</li>
+					</li> #}
 				{% endif %}
 			</ul>
-			
+
 {# {{ source('images/box-label-solid.svg') }}  #}

@@ -20,11 +20,8 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    // .addEntry('js_image_zoom', './assets/js/js_image_zoom.js')
     .addEntry('app', './assets/app.js')
-    .addEntry('js_img_zoom_params', './assets/js/js_img_zoom_params.js')
-    .addEntry('images_collection', './assets/js/images_collection.js')
-    .addEntry('thumbnail_slider', './assets/js/thumbnail_slider.js')
+    .addEntry('jquery.exzoom.init', './assets/js/jquery.exzoom.init.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -74,6 +71,12 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
+
+    .autoProvideVariables({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

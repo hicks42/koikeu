@@ -1,12 +1,6 @@
-
 {% extends 'base.html.twig' %}
 
 {% block title %} Creation de produit {% endblock %}
-
-{% block javascripts %}
-	{{ parent() }}
-	{{ encore_entry_script_tags('images_collection') }}
-{% endblock javascripts %}
 
 {% block body %}
 	<div class="row">
@@ -16,3 +10,8 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('images_collection') }}
+{% endblock javascripts %}

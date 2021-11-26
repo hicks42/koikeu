@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
-use App\Entity\ProductImage;
 use App\Entity\Category;
 use App\Form\ProduitType;
+use App\Entity\Attachment;
 use App\Repository\UserRepository;
+use Symfony\Component\WebLink\Link;
 use App\Repository\ProduitRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\AttachmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,12 +23,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ProductsController extends AbstractController
 {
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     /**
      * @Route("/", name="app_produits", methods={"GET"})
      */
     public function index(ProduitRepository $produitRepository): Response
     {
         $produits = $produitRepository->findBy([], ['createdAt' => 'DESC']);
+
         return $this->render('products/index.html.twig', compact('produits'));
     }
 
@@ -42,6 +50,13 @@ class ProductsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             $produit->setUser($this->getUser());
+
+            $attachments = $produit->getAttachments();
+            foreach ($attachments as $key => $attachment) {
+                $attachment->setProduit($produit);
+                $attachments->set($key, $attachment);
+            }
+
             $em->persist($produit);
             $em->flush();
 
@@ -55,12 +70,33 @@ class ProductsController extends AbstractController
         ]);
     }
 
+    // /**
+    //  * @Route("/{id<\d+>}", name="app_produits_show", methods={"GET"})
+    //  */
+    // public function show(Produit $produit): Response
+    // {
+    //     return $this->render('products/show.html.twig', compact('produit'));
+    // }
+
     /**
-     * @Route("/{id<\d+>}", name="app_produits_show", methods={"GET"})
+     * @Route("/{slug}", name="app_produits_show", methods={"GET"})
      */
-    public function show(Produit $produit): Response
+    public function show($slug, Request $request, CategoryRepository $catrepo, AttachmentRepository $attrepo): Response
     {
-        return $this->render('products/show.html.twig', compact('produit'));
+        // $this->addLink($request, new Link('preload', '/build/js_image_zoom.js')); !!!! unverified !!!!
+
+        $produit = $this->em->getRepository(Produit::class)->findBySlug($slug);
+
+        if(!$produit){
+            return $this->redirectToRoute('app_home');
+        }
+        $produit = $produit[0];
+        $prod_id = $produit->getId();
+        $attachments = $attrepo->findBy(
+            ['produit' => $prod_id]
+        );
+
+        return $this->render('products/show.html.twig', compact('produit', 'attachments'));
     }
 
     /**
@@ -92,11 +128,12 @@ class ProductsController extends AbstractController
     }
 
     /**
-     * @Route("/{category}", name="app_produits_by_category", methods={"GET"})
+     * @Route("/categorie/{category}", name="app_produits_by_category", methods={"GET"})
      */
     public function index_by_category(ProduitRepository $produitRepository, CategoryRepository $categoryRepository, Request $request): Response
     {
         $category = $request->attributes->get('category');
+        // dd($category);
         $category_id = $categoryRepository->findOneBy(['name' => $category])->getId();
         $produits = $produitRepository->findBy(['category' => $category_id], [
             'createdAt' => 'DESC',

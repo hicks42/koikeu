@@ -1,0 +1,13 @@
+<div class="form-widget">
+	{% for image in field.value %}
+		<dd class="m-1">
+			<a href="#" class="ea-lightbox-thumbnail" data-ea-lightbox-content-selector="#ea-lightbox-{{image.id}}">
+        <img src="{{image.attImage ? vich_uploader_asset(image) | imagine_filter('square_thumbnail_small')}}" class="img-fluid">
+			</a>
+			<div id="ea-lightbox-{{image.id}}" class="ea-lightbox">
+        <img src="/images/products/{{image.attImage}}">
+			</div>
+		</dd>
+	{% endfor %}
+</div>
+{# | imagine_filter('square_thumbnail_small') #}

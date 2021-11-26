@@ -5,9 +5,15 @@
     root.ImageZoom = factory();
   }
 }(this, function () {
+
+  // ###########################
+  // document.getElementById('container').addEventListener('mouseover', function () {
+  //   ImageZoom('featured')
+  // })
+
   /**
    * @param {Object} container DOM element, which contains an image to be zoomed (required)
-   * @param {Object} options js-image-zoom options (required)
+   * @param {Object} options js_image_zoom options (required)
    * **width** (number) - width of the source image (optional)
    * **height** (number) - height of the source image (optional).
    * **zoomWidth** (number) - width of the zoomed image. Zoomed image height equals source image height (optional)
@@ -19,6 +25,8 @@
    * **zoomPosition** (string) - position of zoomed image. It can be:  `top`, `left`, `bottom`, `original` or the default `right`.
    * **zoomLensStyle** (string) custom style applied to to zoom lents (i.e. 'opacity: 0.1;background-color: white;')
    */
+
+
   return function ImageZoom(container, opts) {
     "use strict";
     var options = opts;

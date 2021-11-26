@@ -2,13 +2,14 @@
 
 {% block title %} {{produit.name}} {% endblock %}
 {% block head %}
-	{{ parent() }}
-  <script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" ></script>
+  {{ parent() }}
   {% block javascripts %}
     {{ parent() }}
-    {# {{ encore_entry_script_tags('js_image_zoom') }} #}
-    {{ encore_entry_script_tags('js_img_zoom_params') }}
-    {{ encore_entry_script_tags('thumbnail_slider') }}
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="https://www.koikeu.fr/jquery.exzoom.js" type="application/javascript"></script>
+    {# {{ encore_entry_script_tags('thumbnail_slider') }} #}
+    {# {{ encore_entry_script_tags('jquery.exzoom.init') }} #}
   {% endblock javascripts %}
 {% endblock %}
 
@@ -18,27 +19,38 @@
     <article class="show-article">
       <div class="content-wrapper">
         <div class="column">
-          <div id="img-container" style="width: 400px">
-            <img class="grd-image" src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) }}" alt="{{ produit.name }}"/>
-          </div>
-          <div id="slide-wrapper">
-            <img id="slideLeft" class="arrow" src="/images/arrow-left.png">
-            <div id="slider">
-              <img class="thumbnail active" src="/images/shoe1.jpg">
-              <img class="thumbnail" src="/images/shoe2.jpg">
-              <img class="thumbnail" src="/images/shoe3.jpg">
+          <div class="exzoom hidden" id="exzoom">
+            <div class="exzoom_img_box">
+              <ul class='exzoom_img_ul'>
+                <li><img src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ produit.name }}"/></li>
+
+                {% if attachments %}
+                  {% for attachment in attachments %}
+                    <li><img src="/images/products/{{attachment.attImage}}"></li>
+                  {% endfor %}
+                {% endif %}
+
+              </ul>
             </div>
-            <img id="slideRight" class="arrow" src="/images/arrow-right.png">
+            {% if attachments %}
+              <!-- <a href="https://www.jqueryscript.net/tags.php?/Thumbnail/">Thumbnail</a> Nav-->
+              <div class="exzoom_nav"></div>
+              <!-- Nav Buttons -->
+              <p class="exzoom_btn">
+                  <a href="javascript:void(0);" class="exzoom_prev_btn"> < </a>
+                  <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
+              </p>
+            {% endif %}
           </div>
         </div>
       </div>
       <div class="show-info">
         <h1 class="show">{{ produit.name }}</h1>
-        <p class="product-description"><small>{{ produit.description }}</small></p>
-        <p class="product-price">{{ produit.price }} €</p>
+        <p class="produit-description"><small>{{ produit.description }}</small></p>
+        <p class="produit-price">{{ (produit.price /100)|number_format(2, ',', '.') }}€</p>
       </div>
     </article>
-    <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>
+    {# <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>
     {% if is_granted('PRODUIT_MANAGE', produit)%}
       <a href=" {{ path('app_produits_edit', {id: produit.id}) }} " class="btn btn btn-outline-secondary m-2">Modifier</a>
       <a href="#" class="btn btn-danger m-2"  onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-produit-delete-form-{{produit.id}}').submit();">&times; Effacer</a>
@@ -46,9 +58,25 @@
         <input type="hidden" name="csrf_token" value="{{csrf_token('produit_deletion_' ~ produit.id)}}">
         <input type="hidden" name="_method" value="DELETE">
       </form>
-    {% endif %}
+    {% endif %} #}
 
   </div>
+<script type="text/javascript">
+$('.column').imagesLoaded(function () {
+  $("#exzoom").exzoom({
+  // thumbnail nav options
+    "navWidth": 60,
+    "navHeight": 60,
+    "navItemNum": 5,
+    "navItemMargin": 7,
+    "navBorder": 1,
+  // autoplay
+    autoPlay: false,
+  // autoplay interval in milliseconds
+    "autoPlayTimeout": 2000
+  });
+  $("#exzoom").removeClass('hidden')
+});
+</script>
 {% endblock %}
-
-{#  | imagine_filter('square_thumbnail_medium')  #}
+{#  | imagine_filter('square_thumbnail_small')  #}

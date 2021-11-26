@@ -1,4 +1,4 @@
-document.getElementById('img-container').addEventListener('mouseover', function(){
+document.getElementById('img_container').addEventListener('mouseover', function(){
     imageZoom('featured')
 })
 

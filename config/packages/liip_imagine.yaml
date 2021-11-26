@@ -15,9 +15,9 @@ liip_imagine:
             filters:
                 thumbnail:
                     size: [200, 200]
-                    mode: outbound            
+                    mode: outbound
                     allow_upscale: true
-          
+
 
         # use the default cache configuration
         #cache: ~

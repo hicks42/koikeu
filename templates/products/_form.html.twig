@@ -1,4 +1,11 @@
 {{form_start(form)}}
-  {{form_widget(form)}}
+  {# {{form_widget(form)}} #}
+
+{% block collection_row %}
+	{% include('products/_form_attachment.html.twig') %}
+{% endblock %}
+
+
+
   <input type="submit" , value={{ submitButtonText }} class="btn btn-primary w-100" formnovalidate>
 {{form_end(form)}}

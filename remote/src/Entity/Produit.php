@@ -47,7 +47,7 @@ class Produit
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
      * @Assert\Image(maxSize="8M", maxSizeMessage="Le fichier est trop gros")
      * @var File|null
@@ -64,7 +64,7 @@ class Produit
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-    
+
     public function getId(): ?int
     {
         return $this->id;

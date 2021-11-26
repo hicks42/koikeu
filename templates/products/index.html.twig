@@ -3,21 +3,22 @@
 {% block title %}Bienvenue sur koikeu.fr{% endblock %}
 
 {% block body %}
+
 {% if produits|length > 0 %}
-    <h1>Voici les {{ pluralize(produits|length, 'produit') }} de la gamme {{(category) }} </h1>
+    <h1>Voici les {{ pluralize(produits|length, 'produit') }} de la gamme {{ (category) }} </h1>
 
     {% for row in produits|batch(3) %}
         <div class="row mb-5">
             {% for produit in row %}
-                <div class="col-md-4"> 
-                    <article class="product-card">
-                        <div class="product-image">
-                            <a href=" {{ path('app_produits_show', {id:produit.id}) }} "><img src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ produit.name }}"/></a>
+                <div class="col-md-4">
+                    <article class="produit-card">
+                        <div class="produit-image">
+                            <a href=" {{ path('app_produits_show', {slug: produit.slug}) }} "><img src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ produit.name }}"/></a>
                         </div>
-                        <div class="product-info">
-                            <h2><a href="{{ path('app_produits_show', {id: produit.id}) }}">{{ produit.name }}</a></h2>
-                            <p class="product-description"><small>{{ produit.description|u.truncate(25, ' ...', false) }}</small></p>
-                            <p class="product-price">{{ produit.price }} €</p>
+                        <div class="produit-info">
+                            <h2><a href="{{ path('app_produits_show', {slug: produit.slug}) }}">{{ produit.name }}</a></h2>
+                            <p class="produit-description"><small>{{ produit.description|u.truncate(25, ' ...', false) }}</small></p>
+                            <p class="produit-price">{{ (produit.price /100)|number_format(2, ',', '.') }}€</p>
                         </div>
                     </article>
                 </div>

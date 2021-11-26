@@ -17,4 +17,12 @@ class NavController extends AbstractController
         $categories= $categoryRepository->findBy([], ['name' => 'DESC']);
         return $this->render('layout/partials/_nav.html.twig', compact('categories'));
     }
+
+    /**
+     * @Route("/", name="homepage")]
+     */
+    public function homepage(): Response
+    {
+        return $this->render('layout/homepage.html.twig');
+    }
 }

@@ -6,8 +6,8 @@ $('.add-another-collection-widget').click(function (e) {
   // grab the prototype template
   var newWidget = list.attr('data-prototype');
   // replace the "__name__" used in the id and name of the prototype
-  // with a number that's unique to your item
-  // end name attribute looks like name="foo[item][2]"
+  // with a number that's unique to your emails
+  // end name attribute looks like name="contact[emails][2]"
   newWidget = newWidget.replace(/__name__/g, counter);
   // Increase the counter
   counter++;
@@ -15,14 +15,14 @@ $('.add-another-collection-widget').click(function (e) {
   list.data('widget-counter', counter);
 
   // create a new list element and add it to the list
-  var newElem = $(list.attr('data-widget-Imgs')).html(newWidget);
+  var newElem = $(list.attr('data-widget-tags')).html(newWidget);
   newElem.appendTo(list);
 });
 
 const addImgLink = document.createElement('button')
 addImgLink.classList.add('add_Img_list')
 addImgLink.type = 'button'
-addImgLink.innerText = 'Add a Img'
+addImgLink.innerText = 'Ajouter une image'
 addImgLink.dataset.collectionHolderClass = 'Imgs'
 
 const newLinkLi = document.createElement('li').append(addImgLink)

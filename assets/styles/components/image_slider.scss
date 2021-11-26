@@ -12,10 +12,13 @@ body{
 }
 
 #featured{
-	max-width: 500px;
-	max-height: 600px;
+	// max-width: 500px;
+	// max-height: 600px;
 	cursor: pointer;
-	border: 2px solid black;
+	border: 2px solid rgb(73, 73, 73);
+	width: 300px;
+	height: auto;
+	overflow: hidden;
 
 }
 
