@@ -23,14 +23,14 @@ class ContactType extends AbstractType
                 ]
             ])
             ->add('Nom', TextType:: class, [
-                'label' => 'Vote nom :'
+                'label' => 'Votre nom :'
             ])
             ->add('Sujet', TextType::class)
             ->add('Phone', TelType::class,[
                 'label' => 'Téléphone :'
             ])
             ->add('Email', EmailType::class,[
-                'label' => 'Voter e-mail :'
+                'label' => 'Votre e-mail :'
             ])
             ->add('Message',TextareaType::class)
 

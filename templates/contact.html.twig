@@ -7,10 +7,12 @@
 <h1>Contact</h1>
 {{ form_start(form) }}
     <div class="contact-content">
-        {{ form_row(form.Prenom) }}
-        {{ form_row(form.Nom) }}
-        {{ form_row(form.Phone) }}
-        {{ form_row(form.Email) }}
+        <div class="row">
+            <div class="col-md-6">{{ form_row(form.Prenom) }}</div>
+            <div class="col-md-6">{{ form_row(form.Nom) }}</div>
+            <div class="col-md-6">{{ form_row(form.Phone) }}</div>
+            <div class="col-md-6">{{ form_row(form.Email) }}</div>
+        </div>
         {{ form_row(form.Sujet) }}
         {{ form_row(form.Message) }}
     </div>
