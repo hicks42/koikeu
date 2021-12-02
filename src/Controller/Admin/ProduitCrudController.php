@@ -33,26 +33,26 @@ class ProduitCrudController extends AbstractCrudController
         return [
             AssociationField::new('user')->hideOnForm(),
             DateTimeField::new('createdAt')->onlyOnDetail(),
-            ImageField::new('imageName')
+            ImageField::new('imageName', 'Image')
                 ->setBasePath('images/products')
                 ->setUploadDir('public/images/products')
                 ->setRequired(false)
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setColumns(12),
-            TextField::new('name')
+            TextField::new('name', 'Nom du produit')
                 ->setColumns(12),
             SlugField::new('slug')
                 ->setTargetFieldName('name')
                 ->onlyOnForms()
                 ->setColumns(12),
-            AssociationField::new('category')
+            AssociationField::new('category', 'Catégorie')
                 ->setColumns(12),
-            TextareaField::new('description')
+            TextareaField::new('description', 'Description')
                 ->setColumns(12),
-            MoneyField::new('price')
+            MoneyField::new('price', 'Prix')
                 ->setCurrency('EUR')
                 ->setColumns(12),
-            CollectionField::new('attachments')
+            CollectionField::new('attachments', 'Photos sup.')
                 ->setEntryType(AttachmentType::class)
                 ->setFormTypeOption('by_reference', false)
                 ->onlyOnForms()
