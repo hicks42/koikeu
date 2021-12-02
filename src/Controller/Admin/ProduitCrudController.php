@@ -37,19 +37,30 @@ class ProduitCrudController extends AbstractCrudController
                 ->setBasePath('images/products')
                 ->setUploadDir('public/images/products')
                 ->setRequired(false)
-                ->setUploadedFileNamePattern('[randomhash].[extension]'),
-            TextField::new('name'),
-            SlugField::new('slug')->setTargetFieldName('name')->onlyOnForms(),
-            AssociationField::new('category'),
-            TextareaField::new('description'),
-            MoneyField::new('price')->setCurrency('EUR'),
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->setColumns(12),
+            TextField::new('name')
+                ->setColumns(12),
+            SlugField::new('slug')
+                ->setTargetFieldName('name')
+                ->onlyOnForms()
+                ->setColumns(12),
+            AssociationField::new('category')
+                ->setColumns(12),
+            TextareaField::new('description')
+                ->setColumns(12),
+            MoneyField::new('price')
+                ->setCurrency('EUR')
+                ->setColumns(12),
             CollectionField::new('attachments')
                 ->setEntryType(AttachmentType::class)
                 ->setFormTypeOption('by_reference', false)
-                ->onlyOnForms(),
+                ->onlyOnForms()
+                ->setColumns(12),
             CollectionField::new('attachments')
                 ->setTemplatePath('attachment.html.twig')
-                ->onlyOnDetail(),
+                ->onlyOnDetail()
+                ->setColumns(12),
         ];
     }
 
@@ -59,4 +70,19 @@ class ProduitCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ;
     }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // ...
+
+            ->overrideTemplate('crud/new', '/bundles/EasyAdminBundle/custom/produit_new.html.twig')
+
+            // ->overrideTemplates([
+            //     'crud/field/text' => 'admin/product/field_id.html.twig',
+            //     'label/null' => 'admin/labels/null_product.html.twig',
+            // ])
+            ;
+    }
+
 }
