@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Produit;
 use App\Entity\Attachment;
 use App\Form\AttachmentType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -47,7 +48,8 @@ class ProduitCrudController extends AbstractCrudController
                 ->setColumns(12),
             AssociationField::new('category', 'Catégorie')
                 ->setColumns(12),
-            TextareaField::new('description', 'Description')
+            TextEditorField::new('description', 'Description')
+                ->setFormType(CKEditorType::class)
                 ->setColumns(12),
             MoneyField::new('price', 'Prix')
                 ->setCurrency('EUR')
@@ -75,8 +77,9 @@ class ProduitCrudController extends AbstractCrudController
     {
         return $crud
             // ...
-
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
             ->overrideTemplate('crud/new', '/bundles/EasyAdminBundle/custom/produit_new.html.twig')
+            ->overrideTemplate('crud/edit', '/bundles/EasyAdminBundle/custom/produit_edit.html.twig')
 
             // ->overrideTemplates([
             //     'crud/field/text' => 'admin/product/field_id.html.twig',
