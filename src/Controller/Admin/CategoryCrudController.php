@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -20,6 +21,10 @@ class CategoryCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
+            SlugField::new('slug')
+                ->setTargetFieldName('name')
+                ->onlyOnForms()
+                ->setColumns(12),
             ImageField::new('imageName')
                 ->setBasePath('images/products')
                 ->setUploadDir('public/images/products')
