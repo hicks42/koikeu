@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Produit;
 use App\Entity\Attachment;
 use App\Form\AttachmentType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -33,26 +34,27 @@ class ProduitCrudController extends AbstractCrudController
         return [
             AssociationField::new('user')->hideOnForm(),
             DateTimeField::new('createdAt')->onlyOnDetail(),
-            ImageField::new('imageName')
+            ImageField::new('imageName', 'Image')
                 ->setBasePath('images/products')
                 ->setUploadDir('public/images/products')
                 ->setRequired(false)
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setColumns(12),
-            TextField::new('name')
+            TextField::new('name', 'Nom du produit')
                 ->setColumns(12),
             SlugField::new('slug')
                 ->setTargetFieldName('name')
                 ->onlyOnForms()
                 ->setColumns(12),
-            AssociationField::new('category')
+            AssociationField::new('category', 'Catégorie')
                 ->setColumns(12),
-            TextareaField::new('description')
+            TextEditorField::new('description', 'Description')
+                ->setFormType(CKEditorType::class)
                 ->setColumns(12),
-            MoneyField::new('price')
+            MoneyField::new('price', 'Prix')
                 ->setCurrency('EUR')
                 ->setColumns(12),
-            CollectionField::new('attachments')
+            CollectionField::new('attachments', 'Photos sup.')
                 ->setEntryType(AttachmentType::class)
                 ->setFormTypeOption('by_reference', false)
                 ->onlyOnForms()
@@ -75,8 +77,9 @@ class ProduitCrudController extends AbstractCrudController
     {
         return $crud
             // ...
-
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
             ->overrideTemplate('crud/new', '/bundles/EasyAdminBundle/custom/produit_new.html.twig')
+            ->overrideTemplate('crud/edit', '/bundles/EasyAdminBundle/custom/produit_edit.html.twig')
 
             // ->overrideTemplates([
             //     'crud/field/text' => 'admin/product/field_id.html.twig',

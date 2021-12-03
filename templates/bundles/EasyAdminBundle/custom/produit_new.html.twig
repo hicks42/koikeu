@@ -44,10 +44,9 @@
 
 	{% block main %}
 		{% block new_form %}
-		{# {{ form(new_form) }} #}
 		{{ form_start(new_form) }}
-			<div class="row">
-				<div class="col-md-5 card border-info m-1">
+			<div class="row justify-content-between flex-nowrap">
+				<div class="col-md-6 border border-light shadow p-3 mb-5 bg-white rounded m-1">
 					{{ form_row(new_form.imageName) }}
 					{{ form_row(new_form.name) }}
 					{{ form_row(new_form.slug) }}
@@ -55,7 +54,7 @@
 					{{ form_row(new_form.description) }}
 					{{ form_row(new_form.price) }}
 				</div>
-				<div class="col-md-5 card border-info m-1">
+				<div class="col-md-6 border border-light shadow p-3 mb-5 bg-white rounded m-1">
 					{{ form_row(new_form.attachments) }}
 				</div>
 			</div>
