@@ -38,38 +38,6 @@ class ProductsController extends AbstractController
         return $this->render('products/index.html.twig', compact('produits'));
     }
 
-    /**
-     * @Route("/create", name="app_produits_create", methods={"GET|POST"})
-     * @Security("is_granted('ROLE_USER') and user.isVerified()")
-     */
-    public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo): Response
-    {
-        $produit = new Produit;
-        $form = $this->createForm(ProduitType::class, $produit);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $produit->setUser($this->getUser());
-
-            $attachments = $produit->getAttachments();
-            foreach ($attachments as $key => $attachment) {
-                $attachment->setProduit($produit);
-                $attachments->set($key, $attachment);
-            }
-
-            $em->persist($produit);
-            $em->flush();
-
-            $this->addFlash('success', 'Le nouveau produit a été enregistré');
-
-            return $this->redirectToRoute('app_produits_show', ['id' => $produit->getId()]);
-        }
-
-        return $this->render('products/create.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
     // /**
     //  * @Route("/{id<\d+>}", name="app_produits_show", methods={"GET"})
     //  */
@@ -100,46 +68,84 @@ class ProductsController extends AbstractController
     }
 
     /**
-     * @Route("/{id<\d+>}/edit", name="app_produits_edit", methods={"GET","PUT"})
-     * @Security("is_granted('ROLE_USER') and user.isVerified()")
+     * @Route("/categorie/{slug}", name="app_produits_by_category", methods={"GET"})
      */
-    public function edit(Request $request, EntityManagerInterface $em, Produit $produit): Response
+    public function index_by_category($slug, ProduitRepository $produitRepository, CategoryRepository $categoryRepository, Request $request): Response
     {
-        // $this->denyAccessUnlessGranted('PRODUIT_MANAGE', $produit);
-
-        $form = $this->createForm(ProduitType::class, $produit, [
-            'method' => 'PUT'
+        // $category = $request->attributes->get('category');
+        $category_array =  $this->em->getRepository(Category::class)->findBySlug($slug);
+        $category = $category_array[0];
+        // dd($category);
+        $category_id = $category->getId();
+        $produits = $produitRepository->findBy(['category' => $category_id], [
+            'createdAt' => 'DESC',
         ]);
+        return $this->render('products/index.html.twig', compact('produits', 'category', 'slug'));
+    }
 
+    /**************************************************************************
+    /**************************************************************************
+    /**************************************************************************
+
+    /**
+     * @Route("/create", name="app_produits_create", methods={"GET|POST"})
+    * @Security("is_granted('ROLE_USER') and user.isVerified()")
+    */
+    public function create(Request $request, EntityManagerInterface $em, UserRepository $userRepo): Response
+    {
+        $produit = new Produit;
+        $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-        $em->flush();
+            $produit->setUser($this->getUser());
 
-        $this->addFlash('success', 'Le produit a été modifié');
+            $attachments = $produit->getAttachments();
+            foreach ($attachments as $key => $attachment) {
+                $attachment->setProduit($produit);
+                $attachments->set($key, $attachment);
+            }
 
-        return $this->redirectToRoute('app_home');
+            $em->persist($produit);
+            $em->flush();
+
+            $this->addFlash('success', 'Le nouveau produit a été enregistré');
+
+            return $this->redirectToRoute('app_produits_show', ['id' => $produit->getId()]);
         }
 
-        return $this->render('products/edit.html.twig', [
-            'produit' => $produit,
+        return $this->render('products/create.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/categorie/{category}", name="app_produits_by_category", methods={"GET"})
-     */
-    public function index_by_category(ProduitRepository $produitRepository, CategoryRepository $categoryRepository, Request $request): Response
-    {
-        $category = $request->attributes->get('category');
-        // dd($category);
-        $category_id = $categoryRepository->findOneBy(['name' => $category])->getId();
-        $produits = $produitRepository->findBy(['category' => $category_id], [
-            'createdAt' => 'DESC',
-        ]);
-        return $this->render('products/index.html.twig', compact('produits', 'category'));
-    }
+     * @Route("/{id<\d+>}/edit", name="app_produits_edit", methods={"GET","PUT"})
+         * @Security("is_granted('ROLE_USER') and user.isVerified()")
+         */
+        public function edit(Request $request, EntityManagerInterface $em, Produit $produit): Response
+        {
+            // $this->denyAccessUnlessGranted('PRODUIT_MANAGE', $produit);
+
+            $form = $this->createForm(ProduitType::class, $produit, [
+                'method' => 'PUT'
+            ]);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()){
+            $em->flush();
+
+            $this->addFlash('success', 'Le produit a été modifié');
+
+            return $this->redirectToRoute('app_home');
+            }
+
+            return $this->render('products/edit.html.twig', [
+                'produit' => $produit,
+                'form' => $form->createView()
+            ]);
+        }
 
     /**
      * @Route("/{id<\d+>}/delete", name="app_produits_delete", methods={"DELETE"})

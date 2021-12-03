@@ -12,11 +12,11 @@
 					<div class="col-md-4">
 						<article class="produit-card">
 							<div class="produit-image">
-								<a href=" {{ path('app_produits_by_category', {category: category.name}) }} "><img src="{{ (category.imageName ? vich_uploader_asset(category) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ category.name }}"/></a>
+								<a href=" {{ path('app_produits_by_category', {slug: category.slug}) }} "><img src="{{ (category.imageName ? vich_uploader_asset(category) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ category.name }}"/></a>
 							</div>
 							<div class="produit-info">
 								<h2>
-									<a href="{{ path('app_produits_by_category', {category: category.name}) }}">{{ category.name }}</a>
+									<a href="{{ path('app_produits_by_category', {slug: category.slug}) }}">{{ category.name }}</a>
 								</h2>
 							</div>
 						</article>

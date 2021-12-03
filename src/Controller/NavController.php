@@ -15,6 +15,7 @@ class NavController extends AbstractController
     public function navbar(CategoryRepository $categoryRepository): Response
     {
         $categories= $categoryRepository->findBy([], ['name' => 'DESC']);
+        // dd($categories);
         return $this->render('layout/partials/_nav.html.twig', compact('categories'));
     }
 
