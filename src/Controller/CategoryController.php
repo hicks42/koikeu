@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/category")
+ * @Route("/categorie")
  */
 class CategoryController extends AbstractController
 {
@@ -59,10 +59,17 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="category_show", methods={"GET"})
+     * @Route("/{slug}", name="category_show", methods={"GET"})
      */
-    public function show(Category $category): Response
+    public function show($slug, Request $request): Response
     {
+        $category = $this->em->getRepository(Category::class)->findBySlug($slug);
+
+        if (!$category) {
+            return $this->redirectToRoute('app_home');
+        }
+        $category = $category[0];
+
         return $this->render('category/show.html.twig', [
             'category' => $category,
         ]);

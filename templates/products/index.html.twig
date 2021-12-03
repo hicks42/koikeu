@@ -17,7 +17,7 @@
                         </div>
                         <div class="produit-info">
                             <h2><a href="{{ path('app_produits_show', {slug: produit.slug}) }}">{{ produit.name }}</a></h2>
-                            <p class="produit-description"><small>{{ produit.description|u.truncate(25, ' ...', false) }}</small></p>
+                            <p class="produit-description"><small>{{ produit.description|raw|u.truncate(25, ' ...', false) }}</small></p>
                             <p class="produit-price">{{ (produit.price /100)|number_format(2, ',', '.') }}€</p>
                         </div>
                     </article>
