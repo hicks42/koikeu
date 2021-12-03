@@ -30,14 +30,14 @@ class ContactController extends AbstractController
 
             $mail->send(
                 $contact->get('Email')->getData(),
-                // 'fanny@koikeu.fr',
-                'gerin.patrice@yahoo.fr',
+                'fanny@koikeu.fr',
+                // 'gerin.patrice@yahoo.fr',
                 'Contact depuis le site koikeu.fr',
                 'contact',
                 $context
             );
 
-            $this->addFlash('success', 'Mail de contact envoyé');
+            $this->addFlash('success', 'Votre mail a bien été envoyé');
             return $this->redirectToRoute('homepage');
         }
 
