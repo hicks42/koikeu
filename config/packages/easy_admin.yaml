@@ -1,0 +1,7 @@
+easy_admin:
+    entities:
+        Produit:
+            class: App\Entity\Produit
+            form:
+                fields:
+                - { property: 'description', type: 'FOS\CKEditorBundle\Form\Type\CKEditorType' }
