@@ -20,16 +20,18 @@ class CategoryCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('name'),
-            SlugField::new('slug')
-                ->setTargetFieldName('name')
-                ->onlyOnForms()
-                ->setColumns(12),
-            ImageField::new('imageName')
+            TextField::new('name','Nom de la catégorie')
+                ->setColumns(6),
+            ImageField::new('imageName', 'Image')
                 ->setBasePath('images/products')
                 ->setUploadDir('public/images/products')
                 ->setRequired(false)
-                ->setUploadedFileNamePattern('[randomhash].[extension]'),
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->setColumns(6),
+            SlugField::new('slug')
+                ->setTargetFieldName('name')
+                ->onlyOnForms()
+                ->setColumns(6),
         ];
     }
 

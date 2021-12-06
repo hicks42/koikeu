@@ -1,0 +1,38 @@
+<div class="carousel-indicators">
+  {% for category in categories %}
+    {% if loop.first  %}
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{loop.index - 1}}" class="active" aria-current="true" aria-label="Slide {{loop.index}}"></button>
+    {% else %}
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{loop.index - 1}}" aria-label="Slide {{loop.index}}"></button>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<div class="carousel-inner">
+  {% for category in categories %}
+    {% if loop.first  %}
+    <div class="carousel-item active" style="background-color:#788981">
+    {% else %}
+    <div class="carousel-item" style="background-color:#788981">
+    {% endif %}
+        <img src=" {{ (category.imageName ? vich_uploader_asset(category)) }} " width="100%" height="auto">
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>{{ category.name }}</h1>
+            <p>
+              <a class="btn btn-lg btn-primary" href="{{ path('app_produits_by_category', {slug: category.slug}) }}">Voir plus</a>
+            </p>
+          </div>
+        </div>
+    </div>
+  {% endfor %}
+
+</div>
+<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	<span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+	<span class="visually-hidden">Next</span>
+</button>

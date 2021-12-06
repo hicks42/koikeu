@@ -11,7 +11,7 @@
                 </div>
                 <div class="show-info">
                     <h1 class="show">{{ produit.name }}</h1>
-                    <p class="produit-description"><small>{{ produit.description }}</small></p>
+                    <p class="produit-description"><small>{{ produit.description|raw }}</small></p>
                     <p class="produit-price">{{ produit.price }} €</p>
                 </div>
             </div>

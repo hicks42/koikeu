@@ -20,19 +20,23 @@ class ContactController extends AbstractController
         $form = $this->createForm(ContactType::class);
 
         $contact = $form->handleRequest($request);
+        $sujet = $contact->get('Sujet')->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $context = [
                 'mail' => $contact->get('Email')->getData(),
                 'sujet' => $contact->get('Sujet')->getData(),
                 'message' => $contact->get('Message')->getData(),
+                'nom' => $contact->get('Nom')->getData(),
+                'prenom' => $contact->get('Prenom')->getData(),
+                'phone' => $contact->get('Phone')->getData(),
             ];
 
             $mail->send(
                 $contact->get('Email')->getData(),
                 'fanny@koikeu.fr',
                 // 'gerin.patrice@yahoo.fr',
-                'Contact depuis le site koikeu.fr',
+                'Mail depuis le site koikeu.fr : '. $sujet ,
                 'contact',
                 $context
             );
