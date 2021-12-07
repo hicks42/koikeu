@@ -19,6 +19,10 @@
     padding: 0 10px;
 }
 
+.container-fluid {
+    justify-content: center !important;
+}
+
 .categories-item a {
     text-decoration: none;
     color: $color-12;
