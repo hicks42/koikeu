@@ -5,7 +5,7 @@
 {% block body %}
 
 {% if produits|length > 0 %}
-    <h1>Voici les {{ pluralize(produits|length, 'produit') }} de la gamme {{ (category) }} </h1>
+    <h1 class="text-center">{{ (category) }} </h1>
 
     {% for row in produits|batch(3) %}
         <div class="row mb-5">

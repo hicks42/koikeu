@@ -25,7 +25,7 @@ class NavController extends AbstractController
     {
         $categories= $categoryRepository->findBy([], ['name' => 'DESC']);
         // dd($categories);
-        return $this->render('layout/partials/_carousel_item.html.twig', compact('categories'));
+        return $this->render('layout/partials/_carousel.html.twig', compact('categories'));
     }
 
     /**

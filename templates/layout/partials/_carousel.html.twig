@@ -15,7 +15,9 @@
     {% else %}
     <div class="carousel-item" style="background-color:#788981">
     {% endif %}
-        <img src=" {{ (category.imageName ? vich_uploader_asset(category)) }} " width="100%" height="auto">
+        {# <div style="min-height:30rem"></div> #}
+          <img src=" {{ (category.imageName ? vich_uploader_asset(category)) }} " width="100%" height="auto">
+
         <div class="container">
           <div class="carousel-caption">
             <h1>{{ category.name }}</h1>
