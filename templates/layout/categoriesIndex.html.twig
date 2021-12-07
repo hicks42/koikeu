@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Familles de produits{% endblock %}
 
 {% block body %}
     <h1>Bienvenue</h1>
@@ -22,7 +22,7 @@
             </div>
         {% endfor %}
     {% else %}
-        <p class="h1 mt-5 text-align:center">Pas encore de categorie</p>
+        <p class="h1 mt-5 text-align:center">Pas encore de famille</p>
         <p class="h4 mt-5 text-center"><a href={{ path ('category_create') }}>Créez la 1ere.</a></p>
     {% endif %}
 {% endblock %}
