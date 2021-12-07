@@ -6,8 +6,8 @@ $btn_width: 15px;
 $btn_height: 60px;
 
 #exzoom {
-    width: 400px;
-    /*height: 400px;*/
+  min-width: 100%;
+  /*height: 400px;*/
 }
 
 .exzoom {
@@ -112,6 +112,11 @@ $btn_height: 60px;
   }
 
   @media screen and (max-width: 768px) {
+    #exzoom {
+      width: 400px;
+      /*height: 400px;*/
+    }
+
     .exzoom_zoom_outer {
       display: none;
     }
