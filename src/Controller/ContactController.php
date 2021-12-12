@@ -18,20 +18,20 @@ class ContactController extends AbstractController
     public function contact(Request $request, SendMailService $mail)
     {
         $form = $this->createForm(ContactType::class);
-
         $contact = $form->handleRequest($request);
         $sujet = $contact->get('Sujet')->getData();
+        $produit = $request->getSession()->getFlashBag('produit');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $context = [
-                'mail' => $contact->get('Email')->getData(),
-                'sujet' => $contact->get('Sujet')->getData(),
-                'message' => $contact->get('Message')->getData(),
                 'nom' => $contact->get('Nom')->getData(),
                 'prenom' => $contact->get('Prenom')->getData(),
                 'phone' => $contact->get('Phone')->getData(),
+                'mail' => $contact->get('Email')->getData(),
+                'sujet' => $contact->get('Sujet')->getData(),
+                'message' => $contact->get('Message')->getData(),
+                // 'produit' => $contact->get('Produit')->getData(),
             ];
-
             $mail->send(
                 $contact->get('Email')->getData(),
                 'fanny@koikeu.fr',
@@ -40,6 +40,7 @@ class ContactController extends AbstractController
                 'contact',
                 $context
             );
+            dd($produit);
 
             $this->addFlash('success', 'Votre mail a bien été envoyé');
             return $this->redirectToRoute('homepage');

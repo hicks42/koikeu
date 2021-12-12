@@ -25,6 +25,8 @@ class ContactType extends AbstractType
             ->add('Nom', TextType:: class, [
                 'label' => 'Votre nom :'
             ])
+            ->add('produit', TextType:: class, [
+            ])
             ->add('Sujet', TextType::class)
             ->add('Phone', TelType::class,[
                 'label' => 'Téléphone :'
@@ -37,7 +39,7 @@ class ContactType extends AbstractType
 
             ->add('Envoyer', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn-primary mt-2'
+                    'class' => 'btn w-100 btn-bgc1-tny mt-2'
                 ]
             ])
         ;
