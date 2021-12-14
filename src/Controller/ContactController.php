@@ -17,10 +17,15 @@ class ContactController extends AbstractController
      */
     public function contact(Request $request, SendMailService $mail)
     {
-        $form = $this->createForm(ContactType::class);
-        $contact = $form->handleRequest($request);
-        $sujet = $contact->get('Sujet')->getData();
-        $produit = $request->getSession()->getFlashBag('produit');
+        $produit = $request->query->get('Produit');
+
+        $form = $this->createForm(ContactType::class, [
+            'produit' => $produit
+        ]);
+            $contact = $form->handleRequest($request);
+            $sujet = $contact->get('Sujet')->getData();
+            //
+            // dd($form->getData('produit'));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $context = [
@@ -30,8 +35,9 @@ class ContactController extends AbstractController
                 'mail' => $contact->get('Email')->getData(),
                 'sujet' => $contact->get('Sujet')->getData(),
                 'message' => $contact->get('Message')->getData(),
-                // 'produit' => $contact->get('Produit')->getData(),
+                'produit' => $produit,
             ];
+
             $mail->send(
                 $contact->get('Email')->getData(),
                 'fanny@koikeu.fr',
@@ -40,14 +46,18 @@ class ContactController extends AbstractController
                 'contact',
                 $context
             );
-            dd($produit);
+
 
             $this->addFlash('success', 'Votre mail a bien été envoyé');
             return $this->redirectToRoute('homepage');
         }
 
         return $this->render('contact.html.twig', [
-            'form' => $form->createView()
+
+            'form' => $form->createView(),[
+                'produit' => $produit,
+            ]
         ]);
+
     }
 }

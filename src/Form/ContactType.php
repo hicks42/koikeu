@@ -10,11 +10,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Security\Csrf\CsrfToken;
 
 class ContactType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+//--vide dd($data['produit']);
+
+$data= $options['data'];
+
         $builder
             ->add('Prenom', TextType::class,[
                 'label' => 'Votre prénom :',
@@ -25,8 +31,14 @@ class ContactType extends AbstractType
             ->add('Nom', TextType:: class, [
                 'label' => 'Votre nom :'
             ])
-            ->add('produit', TextType:: class, [
+
+            ->add('Produit', TextType:: class, [
+                'required'   => false,
+                'empty_data' => 'Contact simple',
+                'disabled' => true,
+                'data'=> $data['produit'],
             ])
+
             ->add('Sujet', TextType::class)
             ->add('Phone', TelType::class,[
                 'label' => 'Téléphone :'
@@ -39,7 +51,7 @@ class ContactType extends AbstractType
 
             ->add('Envoyer', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn w-100 btn-bgc1-tny mt-2'
+                    'class' => 'btn btn-bgc1-tny mt-3'
                 ]
             ])
         ;
@@ -49,6 +61,8 @@ class ContactType extends AbstractType
     {
         $resolver->setDefaults([
             // Configure your form options here
+            'produit' => null,
         ]);
+        // dd($resolver);
     }
 }
