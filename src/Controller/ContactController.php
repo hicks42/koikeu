@@ -17,19 +17,25 @@ class ContactController extends AbstractController
      */
     public function contact(Request $request, SendMailService $mail)
     {
-        $form = $this->createForm(ContactType::class);
+        $produit = $request->query->get('Produit');
 
-        $contact = $form->handleRequest($request);
-        $sujet = $contact->get('Sujet')->getData();
+        $form = $this->createForm(ContactType::class, [
+            'produit' => $produit
+        ]);
+            $contact = $form->handleRequest($request);
+            $sujet = $contact->get('Sujet')->getData();
+            //
+            // dd($form->getData('produit'));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $context = [
-                'mail' => $contact->get('Email')->getData(),
-                'sujet' => $contact->get('Sujet')->getData(),
-                'message' => $contact->get('Message')->getData(),
                 'nom' => $contact->get('Nom')->getData(),
                 'prenom' => $contact->get('Prenom')->getData(),
                 'phone' => $contact->get('Phone')->getData(),
+                'mail' => $contact->get('Email')->getData(),
+                'sujet' => $contact->get('Sujet')->getData(),
+                'message' => $contact->get('Message')->getData(),
+                'produit' => $produit,
             ];
 
             $mail->send(
@@ -41,12 +47,17 @@ class ContactController extends AbstractController
                 $context
             );
 
+
             $this->addFlash('success', 'Votre mail a bien été envoyé');
             return $this->redirectToRoute('homepage');
         }
 
         return $this->render('contact.html.twig', [
-            'form' => $form->createView()
+
+            'form' => $form->createView(),[
+                'produit' => $produit,
+            ]
         ]);
+
     }
 }

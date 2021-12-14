@@ -19,15 +19,22 @@
 	</head>
 	<body>
     <header>
+		<div class="banner-homepage">
+			<div class="d-flex justify-content-center flex-column">
+				<a href="{{path('app_home')}}" class="mx-auto my-5">
+					<img src="/images/logo-koikeu-vert.jpg" height="150vh" alt="KoiKeu">
+				</a>
+				<div class="d-flex justify-content-center">
+					{{ render(controller('App\\Controller\\NavController::navbar')) }}
+				</div>
+			</div>
+		</div>
     </header>
 		<main role="main">
 		<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 			{{ render(controller('App\\Controller\\NavController::carousel')) }}
 		</div>
 		{{ include('layout/partials/_message_flash.html.twig') }}
-	<div  class="d-flex justify-content-center">
-		{{ render(controller('App\\Controller\\NavController::navbar')) }}
-	</div>
 
 			<!-- Marketing messaging and featurettes
 			    ================================================== -->
@@ -38,21 +45,21 @@
 
 				<!-- Three columns of text below the carousel -->
 				<div class="row">
-					<div class="col-lg-6 text-center">
+					<div class="col-lg-6 text-center my-2">
 						<img class="bd-placeholder-img rounded-circle" width="140" height="140"src="/images/hp-produits.jpg"/>
 						<h2>Les produits</h2>
 						<p>liste de nos produits.</p>
 						<p>
-							<a class="btn btn-secondary" href="{{ path ('app_category_index') }}" role="button">Y aller &raquo;</a>
+							<a class="btn btn-bgc1-tny" href="{{ path ('app_category_index') }}" role="button">Voir &raquo;</a>
 						</p>
 					</div>
 					<!-- /.col-lg-4 -->
-					<div class="col-lg-6 text-center">
+					<div class="col-lg-6 text-center my-2">
 						<img class="bd-placeholder-img rounded-circle" width="140" height="140"src="/images/logo-koikeu.jpg"/>
 						<h2>Contactez moi</h2>
-						<p>Remplissez ce formulaire, et je prend contact avec vous le plus tôt possible.</p>
+						<p> Je vous répond le plus tôt possible.</p>
 						<p>
-							<a class="btn btn-secondary" href="{{ path ('contact') }}" role="button">Contact &raquo;</a>
+							<a class="btn btn-bgc1-tny" href="{{ path ('contact') }}" role="button">Contact &raquo;</a>
 						</p>
 					</div>
 					<!-- /.col-lg-4 -->
@@ -77,15 +84,13 @@
 
 				<div class="row featurette">
 					<div class="col-md-7">
-						<h2 class="featurette-heading">First featurette heading.
-							<span class="text-muted">It’ll blow your mind.</span>
+						<h2 class="featurette-heading">Des produits fabriqués en France.
+							<span class="text-muted">Ils époustoufleront votre entourage.</span>
 						</h2>
 						<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
 					</div>
 					<div class="col-md-5">
-						<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500">
-							<title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-						</svg>
+						<img src="/images/france.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
 					</div>
 				</div>
 
@@ -93,15 +98,13 @@
 
 				<div class="row featurette">
 					<div class="col-md-7 order-md-2">
-						<h2 class="featurette-heading">Oh yeah, it’s that good.
-							<span class="text-muted">See for yourself.</span>
+						<h2 class="featurette-heading">Une fabrication artisanale.
+							<span class="text-muted">Fait à la main.</span>
 						</h2>
-						<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+						<p class="lead">Ces produits sont fabriqués par moi même, dans l'atelier que j'ai aménagé à mon domicile dans le centre ville de Saint-Etienne.</p>
 					</div>
 					<div class="col-md-5 order-md-1">
-						<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500">
-							<title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-						</svg>
+						<img src="/images/artisanale.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
 					</div>
 				</div>
 
@@ -109,15 +112,12 @@
 
 				<div class="row featurette">
 					<div class="col-md-7">
-						<h2 class="featurette-heading">And lastly, this one.
-							<span class="text-muted">Checkmate.</span>
+						<h2 class="featurette-heading">Des produits uniques.
 						</h2>
-						<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+						<p class="lead">Même si les modèles sont bien défini. Chacun des articles que je produits sont absolument unique.</p>
 					</div>
 					<div class="col-md-5">
-						<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500">
-							<title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-						</svg>
+						<img src="/images/unique.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
 					</div>
 				</div>
 

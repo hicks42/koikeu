@@ -7,6 +7,13 @@
 <h1>Contact</h1>
 {{ form_start(form) }}
     <div class="contact-content">
+
+        {# {% set var = form.Produit.vars.value %} #}
+
+        {% if form.Produit.vars.value %}
+            {{ form_row(form.Produit) }}
+        {% endif %}
+
         <div class="row">
             <div class="col-md-6">{{ form_row(form.Prenom) }}</div>
             <div class="col-md-6">{{ form_row(form.Nom) }}</div>
@@ -15,7 +22,11 @@
         </div>
         {{ form_row(form.Sujet) }}
         {{ form_row(form.Message) }}
+        <div class="d-flex justify-content-center">
+            {{ form_row(form.Envoyer) }}
+        </div>
     </div>
-{{ form_end(form) }}
+
+{{ form_end(form, {'render_rest': false}) }}
 
 {% endblock %}

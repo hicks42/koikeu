@@ -7,12 +7,20 @@
     align-items: center;
     padding: 5px 0;
 }
+.banner-homepage {
+    color: $color-1;
+    background-color: #fff;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+}
 
 .banner-brand {
     text-decoration: none;
     color: #fff;
     font-size: 4rem;
-    font-family: $logo-font;
+    font-family: $text-font;
     &:hover{
         color: $color-2;
     }

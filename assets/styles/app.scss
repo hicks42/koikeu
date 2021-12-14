@@ -1,11 +1,11 @@
 @import "~bootstrap/scss/bootstrap";
 
 @import 'shared/variables';
-@import 'components/card';
+@import 'components/objects';
 @import 'components/carousel';
 @import 'components/form';
 @import 'components/footer';
-@import 'components/show';
+@import 'components/produit';
 @import 'components/container';
 @import 'components/navbar';
 @import 'components/banner';
@@ -15,7 +15,7 @@
 
 
 html, body {
-  font-family: $primary-font, sans-serif;
+  font-family: $text-font, sans-serif;
   margin-top: 0px;
   padding-top: 0px;
 }
@@ -45,4 +45,11 @@ html, body {
   &.alert-info {
     background-color: blue;
   }
+}
+
+h1 {
+  font-family: $primary-font, sans-serif;
+}
+h2 {
+  font-family: $secondary-font, sans-serif;
 }
