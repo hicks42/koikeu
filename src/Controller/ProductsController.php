@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Search;
 use App\Entity\Produit;
 use App\Entity\Category;
 use App\Form\ProduitType;
@@ -15,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,11 +33,21 @@ class ProductsController extends AbstractController
     /**
      * @Route("/", name="app_produits", methods={"GET"})
      */
-    public function index(ProduitRepository $produitRepository): Response
+    public function index(ProduitRepository $produitRepository, Request $request): Response
     {
         $produits = $produitRepository->findBy([], ['createdAt' => 'DESC']);
 
-        return $this->render('products/index.html.twig', compact('produits'));
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $produits = $this->em->getRepository(Produit::class)->findWithSearch($search);
+        }
+
+        return $this->render('products/index.html.twig', [
+            'produits' => $produits,
+            'form' => $form->createView()
+        ]);
     }
 
     // /**
