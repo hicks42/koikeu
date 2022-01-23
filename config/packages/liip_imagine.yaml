@@ -18,6 +18,12 @@ liip_imagine:
                     mode: outbound
                     allow_upscale: true
 
+        square_thumbnail_vtiny:
+            filters:
+                thumbnail:
+                    size: [150, 100]
+                    mode: outbound
+                    allow_upscale: true
 
         # use the default cache configuration
         #cache: ~
