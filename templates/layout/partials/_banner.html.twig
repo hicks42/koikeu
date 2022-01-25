@@ -1,31 +1,15 @@
 <div class="banner">
-    <div class="container">
-        <a class="banner-brand" href="{{path('app_home')}}"><img src="/images/logo-koikeu.jpg" height="150vh" alt="KoiKeu"></a>
-	        <div class="presentation">
-            Décorations artisanales<br>
-            Création de suspension <br>
-            en bois flottés et macramé <br>
-            &nbsp;<i class="fas fa-mobile-alt"></i> 06 77 94 77 09
-      <ul class="banner-menu mt-1">
-        {% if app.user %}
-          <li>
-            <a href="{{ path('app_account') }}"><i class="fas fa-user-circle"></i> Mon compte</a>
-          </li>
-          <li>
-            <a href="#" onclick="event.preventDefault(); document.getElementById('js-logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</a>
-          </li>
-          <form id="js-logout-form" action="{{ path('app_logout') }}" method="POST" style="display: none;">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
-          </form>
-        {% else %}
-          <li>
-            <a href="{{ path('app_register') }}"><i class="fas fa-id-badge"></i> S'enregistrer</a>
-          </li>
-          <li>
-            <a href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt"></i> Connexion</a>
-          </li>
-        {% endif %}
-      </ul>
-        </div>
-    </div>
+	<div class="container">
+		<a class="banner-brand" href="{{path('app_home')}}"><img src="/images/logo-koikeu.jpg" height="150vh" alt="KoiKeu"></a>
+		<div class="presentation">
+			Décorations artisanales<br>
+			Création de suspension
+			<br>
+			en bois flottés et macramé
+			<br>
+			&nbsp;<i class="fas fa-mobile-alt"></i>
+			06 77 94 77 09
+			{# {{ include('layout/partials/_connexion.html.twig') }} #}
+		</div>
+	</div>
 </div>
