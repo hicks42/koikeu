@@ -26,7 +26,6 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/register", name="app_register")
-     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function register(Request $request, UserPasswordHasherInterface $passwordEncoder): Response
     {
@@ -88,5 +87,5 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_home');
     }
-    
+
 }

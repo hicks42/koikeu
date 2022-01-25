@@ -18,10 +18,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AccountController extends AbstractController
 {
+
     /**
      * @Route("", name="app_account", methods="GET")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
     public function index(): Response
+    {
+        return $this->render('account/index.html.twig', [
+            'controller_name' => 'AccountController',
+        ]);
+    }
+
+    /**
+     * @Route("show", name="app_account_show", methods="GET")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     */
+    public function show(): Response
     {
         return $this->render('account/show.html.twig', [
             'controller_name' => 'AccountController',
@@ -66,16 +79,16 @@ class AccountController extends AbstractController
         ]);
 
         $form->handleRequest($request);
-        
+
         if($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
                 $passwordEncoder->hashPassword($user, $form['plainPassword']->getData())
             );
-          
+
             $em->flush();
-    
+
             $this->addFlash('success', 'Password successfully updated');
-    
+
             return $this->redirectToRoute('app_account');
         }
 
