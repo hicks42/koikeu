@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Account
+{% block title %}Mon compte
 {% endblock %}
 
 {% block body %}
@@ -19,7 +19,7 @@
 
 	<div class="row">
 		<div class="col-md-6 mx-auto text-center">
-			<h1 class="my-5">Profile</h1>
+			<h1 class="my-5">Mon compte</h1>
 
 			<img src="{{app.user.gravatarUrl(500) }}" alt="Avatar" class="shadow rounded mb-5">
 			<h2>{{app.user.FullName}}</h2>
@@ -28,14 +28,14 @@
 			</p>
 			<p>
 				<small>
-					Account created on
+					Compte crée le
 					{{app.user.createdAt|date('d/m/y')}}
 				</small>
 			</p>
 			<p>
-				<a href="{{path('app_edit_account')}}">Edit account</a>
+				<a href="{{path('app_edit_account')}}">Modifier le compte</a>
 				|
-				<a href="{{path('app_change_password')}}">Change password</a>
+				<a href="{{path('app_change_password')}}">Changer le mot de passe</a>
 			</p>
 		</div>
 	</div>

@@ -7,6 +7,7 @@
     align-items: center;
     padding: 5px 0;
 }
+
 .banner-homepage {
     color: $color-1;
     background-color: #fff;
@@ -38,6 +39,29 @@
     }
 }
 
+.banner > .container > .presentation {
+    text-align: justify;
+    width: 230px;
+}
+
+.presentation > .banner-menu {
+    margin-left: -28px;
+}
+
+.presentation > .banner-menu li {
+    display:inline;
+    margin: 0 6px;
+}
+
+
+.presentation > .banner-menu li a {
+    color: #dfebdb;
+    text-decoration: none;
+    &:hover{
+        color: black;
+    }
+}
+
 @media only screen and ( min-width : 800px ){
     .banner .container {
         align-items: center;
@@ -45,7 +69,6 @@
         justify-content: space-between;
         width: 90%;
     }
-    .presentation {
-        text-align: left;
-    }
+
+
 }

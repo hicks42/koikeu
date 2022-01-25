@@ -1,87 +1,96 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{produit.name}} {% endblock %}
+{% block title %}
+	{{produit.name}}
+{% endblock %}
 {% block head %}
-  {{ parent() }}
-  {% block javascripts %}
-    {{ parent() }}
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-    <script src="https://www.koikeu.fr/jquery.exzoom.js" type="application/javascript"></script>
-    {# {{ encore_entry_script_tags('thumbnail_slider') }} #}
-    {# {{ encore_entry_script_tags('jquery.exzoom.init') }} #}
-  {% endblock javascripts %}
+	{{ parent() }}
+	{% block javascripts %}
+		{{ parent() }}
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+		<script src="https://www.koikeu.fr/jquery.exzoom.js" type="application/javascript"></script>
+		{# {{ encore_entry_script_tags('thumbnail_slider') }} #}
+		{# {{ encore_entry_script_tags('jquery.exzoom.init') }} #}
+	{% endblock javascripts %}
 {% endblock %}
 
 {% block body %}
-  <div class="center_column col-xs-6 col-sm-12">
+	<div class="center_column col-xs-6 col-sm-12">
 
-    <article class="show-article">
-      <div class="content-wrapper">
-        <div class="column">
-          <div class="exzoom hidden" id="exzoom">
-            <div class="exzoom_img_box">
-              <ul class='exzoom_img_ul'>
-                <li><img src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ produit.name }}"/></li>
+		<article class="show-article">
+			<div class="content-wrapper">
+				<div class="column">
+					<div class="exzoom hidden" id="exzoom">
+						<div class="exzoom_img_box">
+							<ul class='exzoom_img_ul'>
+								<li><img src="{{ (produit.imageName ? vich_uploader_asset(produit) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ produit.name }}"/></li>
 
-                {% if attachments %}
-                  {% for attachment in attachments %}
-                    <li><img src="{{ (attachment.attImage ? vich_uploader_asset(attachment) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ produit.name }}"></li>
-                  {% endfor %}
-                {% endif %}
+								{% if attachments %}
+									{% for attachment in attachments %}
+										<li><img src="{{ (attachment.attImage ? vich_uploader_asset(attachment) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_medium') }}" alt="{{ produit.name }}"></li>
+									{% endfor %}
+								{% endif %}
 
-              </ul>
-            </div>
-            {% if attachments %}
-              <!-- <a href="https://www.jqueryscript.net/tags.php?/Thumbnail/">Thumbnail</a> Nav-->
-              <div class="exzoom_nav"></div>
-              <!-- Nav Buttons -->
-              <p class="exzoom_btn">
-                  <a href="javascript:void(0);" class="exzoom_prev_btn"> < </a>
-                  <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
-              </p>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-      <div class="show-info">
-        <h1 class="show">{{ produit.name }}</h1>
-        <p class="produit-description"><small>{{ produit.description|raw }}</small></p>
-        <p class="produit-price">{{ (produit.price /100)|number_format(2, ',', '.') }}€</p>
-      </div>
-    </article>
-    <p class="text-center">
-      <a class="btn btn-bgc1-tny" href="{{ path ('add_to_cart', {'id':produit.id}) }}" role="button">Ajouter au panier &raquo;</a>
-      {# <a class="btn btn-bgc1-tny" href="{{ path ('contact', {'Produit':produit.name}) }}" role="button">Commander &raquo;</a> #}
-    </p>
+							</ul>
+						</div>
+						{% if attachments %}
+							<!-- <a href="https://www.jqueryscript.net/tags.php?/Thumbnail/">Thumbnail</a> Nav-->
+							<div class="exzoom_nav"></div>
+							<!-- Nav Buttons -->
+							<p class="exzoom_btn">
+								<a href="javascript:void(0);" class="exzoom_prev_btn">
+									<</a>
+										<a href="javascript:void(0);" class="exzoom_next_btn">
+											>
+										</a>
+									</p>
+								{% endif %}
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="show-info">
+					<h1 class="show">{{ produit.name }}</h1>
+					<p class="produit-description">
+						<small>{{ produit.description|raw }}</small>
+					</p>
+					<p class="produit-price">{{ (produit.price /100)|number_format(2, ',', '.') }}€</p>
+				</div>
+			</article>
+			<p
+				class="text-center">
+				{# <a class="btn btn-bgc1-tny" href="{{ path ('add_to_cart', {'id':produit.id}) }}" role="button">Ajouter au panier &raquo;</a> #}
+				<a class="btn btn-bgc1-tny" href="{{ path ('contact', {'Produit':produit.name}) }}" role="button">Commander &raquo;</a>
+			</p>
 
-    {# <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>
-    {% if is_granted('PRODUIT_MANAGE', produit)%}
-      <a href=" {{ path('app_produits_edit', {id: produit.id}) }} " class="btn btn btn-outline-secondary m-2">Modifier</a>
-      <a href="#" class="btn btn-danger m-2"  onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-produit-delete-form-{{produit.id}}').submit();">&times; Effacer</a>
-      <form id="js-produit-delete-form-{{produit.id}}" action="{{ path('app_produits_delete', {id:produit.id}) }}" method="POST" style="display:none;">
-        <input type="hidden" name="csrf_token" value="{{csrf_token('produit_deletion_' ~ produit.id)}}">
-        <input type="hidden" name="_method" value="DELETE">
-      </form>
-    {% endif %} #}
+			{# <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>
+			    {% if is_granted('PRODUIT_MANAGE', produit)%}
+			      <a href=" {{ path('app_produits_edit', {id: produit.id}) }} " class="btn btn btn-outline-secondary m-2">Modifier</a>
+			      <a href="#" class="btn btn-danger m-2"  onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-produit-delete-form-{{produit.id}}').submit();">&times; Effacer</a>
+			      <form id="js-produit-delete-form-{{produit.id}}" action="{{ path('app_produits_delete', {id:produit.id}) }}" method="POST" style="display:none;">
+			        <input type="hidden" name="csrf_token" value="{{csrf_token('produit_deletion_' ~ produit.id)}}">
+			        <input type="hidden" name="_method" value="DELETE">
+			      </form>
+			    {% endif %} #}
 
-  </div>
-<script type="text/javascript">
-$('.column').imagesLoaded(function () {
-  $("#exzoom").exzoom({
-  // thumbnail nav options
-    "navWidth": 60,
-    "navHeight": 60,
-    "navItemNum": 5,
-    "navItemMargin": 7,
-    "navBorder": 1,
-  // autoplay
-    autoPlay: false,
-  // autoplay interval in milliseconds
-    "autoPlayTimeout": 2000
-  });
-  $("#exzoom").removeClass('hidden')
+		</div>
+		<script type="text/javascript">
+			$('.column').imagesLoaded(function () {
+$("#exzoom").exzoom({
+// thumbnail nav options
+"navWidth": 60,
+"navHeight": 60,
+"navItemNum": 5,
+"navItemMargin": 7,
+"navBorder": 1,
+// autoplay
+autoPlay: false,
+// autoplay interval in milliseconds
+"autoPlayTimeout": 2000
 });
-</script>
-{% endblock %}
-{#  | imagine_filter('square_thumbnail_small')  #}
+$("#exzoom").removeClass('hidden')
+});
+		</script>
+	{% endblock %}
+	{#  | imagine_filter('square_thumbnail_small')  #}
