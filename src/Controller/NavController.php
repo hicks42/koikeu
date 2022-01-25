@@ -14,7 +14,7 @@ class NavController extends AbstractController
      */
     public function navbar(CategoryRepository $categoryRepository): Response
     {
-        $categories= $categoryRepository->findBy([], ['name' => 'DESC']);
+        $categories = $categoryRepository->findBy([], ['display' => 'ASC']);
         return $this->render('layout/partials/_nav.html.twig', compact('categories'));
     }
 
@@ -23,7 +23,7 @@ class NavController extends AbstractController
      */
     public function carousel(CategoryRepository $categoryRepository): Response
     {
-        $categories= $categoryRepository->findBy([], ['name' => 'DESC']);
+        $categories = $categoryRepository->findBy([], ['display' => 'ASC']);
         // dd($categories);
         return $this->render('layout/partials/_carousel.html.twig', compact('categories'));
     }

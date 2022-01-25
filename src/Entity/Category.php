@@ -56,6 +56,11 @@ class Category
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $display;
+
     public function __construct()
     {
         $this->produit_id = new ArrayCollection();
@@ -148,6 +153,18 @@ class Category
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getDisplay(): ?int
+    {
+        return $this->display;
+    }
+
+    public function setDisplay(int $display): self
+    {
+        $this->display = $display;
 
         return $this;
     }

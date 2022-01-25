@@ -19,8 +19,8 @@ class CategoryController extends AbstractController
 {
 
     /**
-    * @Route("/index", name="app_category_index", methods={"GET"})
-    */
+     * @Route("/index", name="app_category_index", methods={"GET"})
+     */
     public function index(CategoryRepository $categoryRepository): Response
     {
         return $this->render('category/index.html.twig', [
@@ -30,7 +30,7 @@ class CategoryController extends AbstractController
 
     public function categoriesIndex(CategoryRepository $categoryRepository): Response
     {
-        $categories= $categoryRepository->findBy([], ['name' => 'DESC']);
+        $categories = $categoryRepository->findBy([], ['display' => 'DESC']);
         return $this->render('layout/categoriesIndex.html.twig', compact('categories'));
     }
 
@@ -102,7 +102,7 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();
