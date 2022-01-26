@@ -28,7 +28,7 @@ class ProduitCrudController extends AbstractCrudController
         return Produit::class;
     }
 
-    public function configureFields(string $pageName ): iterable
+    public function configureFields(string $pageName): iterable
     {
 
         return [
@@ -54,7 +54,7 @@ class ProduitCrudController extends AbstractCrudController
             MoneyField::new('price', 'Prix')
                 ->setCurrency('EUR')
                 ->setColumns(12),
-            CollectionField::new('attachments', 'Photos sup.')
+            CollectionField::new('attachments', 'Galerie de photos suplémentaires')
                 ->setEntryType(AttachmentType::class)
                 ->setFormTypeOption('by_reference', false)
                 ->onlyOnForms()
@@ -69,8 +69,7 @@ class ProduitCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ;
+            ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -85,7 +84,6 @@ class ProduitCrudController extends AbstractCrudController
             //     'crud/field/text' => 'admin/product/field_id.html.twig',
             //     'label/null' => 'admin/labels/null_product.html.twig',
             // ])
-            ;
+        ;
     }
-
 }
