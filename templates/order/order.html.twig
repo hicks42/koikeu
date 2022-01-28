@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande
+{% endblock %}
+
+{% block body %}
+
+	<div class="example-wrapper">
+		<h1>Passer la commande</h1>
+		Configurer la prochaine livraison
+		<hr>
+		<div class="row">
+			<div class="col-md-6">
+				{% set formHtml %}
+				{{ form_start(form, {action:path('commande_recap')}) }}
+				{{ form_label(form.addresses, 'Choisissez votre adresse de livraison') }}
+				<a href="{{path('account_add_address')}}">Ajouter une adresse</a>
+				{{ form_end(form) }}
+				{% endset %}
+				{{ formHtml|replace({'[br]' : '<br/>'})|raw }}
+			</div>
+			<div class=" col-md-6">
+				<div class="col-form-label">Récapitulatif de la commande</div>
+				<div class="order-summary">
+					{% for key,item in cart %}
+						<div class="row {% if key > 0 %}mt-2{% endif %} ">
+							<div class="col-2">
+								<img src="{{ (item.produit.imageName ? vich_uploader_asset(item.produit) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_mini') }}">
+							</div>
+							<div class="col-8 my-auto mt-2">
+								{{ item.produit.name }}
+							</div>
+							<div class="col-2 my-auto mt-2">
+								x
+								{{ item.quantity }}
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

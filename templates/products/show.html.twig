@@ -40,43 +40,40 @@
 							<!-- Nav Buttons -->
 							<p class="exzoom_btn">
 								<a href="javascript:void(0);" class="exzoom_prev_btn">
-									<</a>
-										<a href="javascript:void(0);" class="exzoom_next_btn">
-											>
-										</a>
-									</p>
-								{% endif %}
+									<</a><ahref="javascript:void(0);"class="exzoom_next_btn">>
+								</a>
 							</p>
-						</div>
-					</div>
-				</div>
-				<div class="show-info">
-					<h1 class="show">{{ produit.name }}</h1>
-					<p class="produit-description">
-						<small>{{ produit.description|raw }}</small>
+						{% endif %}
 					</p>
-					<p class="produit-price">{{ (produit.price /100)|number_format(2, ',', '.') }}€</p>
 				</div>
-			</article>
-			<p
-				class="text-center">
-				{# <a class="btn btn-bgc1-tny" href="{{ path ('add_to_cart', {'id':produit.id}) }}" role="button">Ajouter au panier &raquo;</a> #}
-				<a class="btn btn-bgc1-tny" href="{{ path ('contact', {'Produit':produit.name}) }}" role="button">Commander &raquo;</a>
-			</p>
-
-			{# <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>
-			    {% if is_granted('PRODUIT_MANAGE', produit)%}
-			      <a href=" {{ path('app_produits_edit', {id: produit.id}) }} " class="btn btn btn-outline-secondary m-2">Modifier</a>
-			      <a href="#" class="btn btn-danger m-2"  onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-produit-delete-form-{{produit.id}}').submit();">&times; Effacer</a>
-			      <form id="js-produit-delete-form-{{produit.id}}" action="{{ path('app_produits_delete', {id:produit.id}) }}" method="POST" style="display:none;">
-			        <input type="hidden" name="csrf_token" value="{{csrf_token('produit_deletion_' ~ produit.id)}}">
-			        <input type="hidden" name="_method" value="DELETE">
-			      </form>
-			    {% endif %} #}
-
+			</div>
 		</div>
-		<script type="text/javascript">
-			$('.column').imagesLoaded(function () {
+		<div class="show-info">
+			<h1 class="show">{{ produit.name }}</h1>
+			<p class="produit-description">
+				<small>{{ produit.description|raw }}</small>
+			</p>
+			<p class="produit-price">{{ (produit.price /100)|number_format(2, ',', '.') }}€</p>
+		</div>
+	</article>
+	<p class="text-center">
+		<a class="btn btn-bgc1-tny" href="{{ path ('add_to_cart', {'id':produit.id}) }}" role="button">Ajouter au panier &raquo;</a>
+		<a class="btn btn-bgc1-tny" href="{{ path ('contact', {'Produit':produit.name}) }}" role="button">Commander &raquo;</a>
+	</p>
+
+	{# <a href="{{path('app_home',{'id':produit.id})}}" class="btn btn btn-outline-secondary m-2">Home</a>
+				    {% if is_granted('PRODUIT_MANAGE', produit)%}
+				      <a href=" {{ path('app_produits_edit', {id: produit.id}) }} " class="btn btn btn-outline-secondary m-2">Modifier</a>
+				      <a href="#" class="btn btn-danger m-2"  onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-produit-delete-form-{{produit.id}}').submit();">&times; Effacer</a>
+				      <form id="js-produit-delete-form-{{produit.id}}" action="{{ path('app_produits_delete', {id:produit.id}) }}" method="POST" style="display:none;">
+				        <input type="hidden" name="csrf_token" value="{{csrf_token('produit_deletion_' ~ produit.id)}}">
+				        <input type="hidden" name="_method" value="DELETE">
+				      </form>
+				    {% endif %} #}
+
+</div>
+<script type="text/javascript">
+	$('.column').imagesLoaded(function () {
 $("#exzoom").exzoom({
 // thumbnail nav options
 "navWidth": 60,
@@ -91,6 +88,4 @@ autoPlay: false,
 });
 $("#exzoom").removeClass('hidden')
 });
-		</script>
-	{% endblock %}
-	{#  | imagine_filter('square_thumbnail_small')  #}
+</script>{% endblock %}{#  | imagine_filter('square_thumbnail_small')  #}

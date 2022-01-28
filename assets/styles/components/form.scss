@@ -1,9 +1,19 @@
-.vich-image{ 
-    .form-check{
-      @extend .mt-3;
+.vich-image {
+  .form-check {
+    @extend .mt-3;
   }
-  
-    img {
-      @extend .mb-2, .rounded, .shadow, .img-thumbnail;  
+
+  img {
+    @extend .mb-2, .rounded, .shadow, .img-thumbnail;
   }
-  }
+}
+
+.form-check {
+  background-color: #f4f8ff;
+  padding: 20px 40px;
+  margin-top: 5px;
+}
+
+.col-form-label {
+  font-weight: bold;
+}
