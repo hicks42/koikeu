@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Security\EmailVerifier;
 use App\Form\RegistrationFormType;
 use Symfony\Component\Mime\Address;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +19,9 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class RegistrationController extends AbstractController
 {
     private $emailVerifier;
+    private $doctrine;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, ManagerRegistry $doctrine)
     {
         $this->emailVerifier = $emailVerifier;
     }
@@ -42,16 +44,19 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->doctrine->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address(
                         $this->getParameter('app.mail_from_adress'),
-                        $this->getParameter('app.mail_from_name'),))
+                        $this->getParameter('app.mail_from_name'),
+                    ))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
@@ -87,5 +92,4 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_home');
     }
-
 }

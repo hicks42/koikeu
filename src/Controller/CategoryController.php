@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,6 +18,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class CategoryController extends AbstractController
 {
+
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+    }
 
     /**
      * @Route("/index", name="app_category_index", methods={"GET"})
@@ -45,7 +52,7 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->doctrine->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
 
@@ -85,7 +92,7 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->doctrine->getManager()->flush();
 
             return $this->redirectToRoute('app_categories');
         }
@@ -103,7 +110,7 @@ class CategoryController extends AbstractController
     public function delete(Request $request, Category $category): Response
     {
         if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $this->doctrine->getManager();
             $entityManager->remove($category);
             $entityManager->flush();
         }

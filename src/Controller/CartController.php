@@ -24,18 +24,18 @@ class CartController extends AbstractController
     public function index(Cart $cart)
     {
         $cartDetail = [];
-// dd($cart);
-        foreach ($cart->get() as $id => $quantity){
+        // dd($cart);
+        foreach ($cart->get() as $id => $quantity) {
             $cartDetail[] = [
                 'produit' => $this->em->getRepository(Produit::class)->findOneById($id),
                 'quantity' => $quantity,
             ];
         }
-// dd($cartDetail);
+        // dd($cartDetail);
 
-return $this->render('cart/cart.html.twig', [
-    'cart' => $cartDetail
-]);
+        return $this->render('order/cart.html.twig', [
+            'cart' => $cartDetail
+        ]);
     }
 
     /**

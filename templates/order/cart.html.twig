@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier
+{% endblock %}
+
+{% block body %}
+	<div class="wrapper">
+		<h1>Mon panier</h1>
+
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col"></th>
+					<th scope="col">Name</th>
+					<th scope="col" class="text-center">Quantity</th>
+					<th scope="col">Prix unitaire</th>
+					<th scope="col">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% set total = null %}
+				{% for item in cart %}
+					<tr>
+						<th scope="row">{{loop.index}}</th>
+						<td><img src="{{ (item.produit.imageName ? vich_uploader_asset(item.produit) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_vtiny') }}"></td>
+						<td>
+							<b>{{item.produit.name}}</b><br>
+							{{ item.produit.description|u.truncate(25, ' ...', false)|raw }}</td>
+						<td class="text-center">
+							<a href="{{ path('decrease_from_cart', {'id': item.produit.id}) }} ">
+								<img src="{{asset('images/minus-sign.png')}}" height="15" alt="moins un"></a>
+							x
+							{{item.quantity}}
+							<a href="{{ path('add_to_cart', {'id': item.produit.id}) }} ">
+								<img src="{{asset('images/plus-sign.png')}}" height="15" alt="plus un"></a>
+						</td>
+						<td>{{ (item.produit.price / 100)|number_format(2, ',', '.') }}
+							€</td>
+						<td>{{ ((item.produit.price * item.quantity) / 100)|number_format(2, ',', '.') }}
+							€</td>
+						<td>
+							<a href="{{ path('remove_from_cart', {'id': item.produit.id}) }}">
+								<img src="{{ asset('images/trash.png') }}" height="15" alt="supprimmer"></a>
+						</td>
+					</tr>
+					{% set total = total + (item.produit.price * item.quantity) %}
+				{% endfor %}
+			</tbody>
+		</table>
+		<hr size="5" color="blue">
+		<div class="text-end mb-5">
+			<b>Nombre de produit :
+			</b>
+			{{ cart|length }}<br>
+			<b>Prix total :
+			</b>
+			{{ (total / 100)|number_format(2, ',', '.') }}
+			€
+		</div>
+		<p class="h4 mt-5 text-center">
+			<a href="{{ path('commande') }}" class="btn btn-success w-25">Passer la commande</a>
+			<a href="{{ path('app_category_index') }}" class="btn btn-secondary w-25">Retour sur la page produits</a>
+		</p>
+	</div>
+{% endblock %}
