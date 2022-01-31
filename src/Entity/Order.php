@@ -61,6 +61,17 @@ class Order
         $this->orderDetails = new ArrayCollection();
     }
 
+    public function getTotal()
+    {
+        // dd($this->getOrderDetails()->getValues());
+        $total = null;
+        foreach ($this->getOrderDetails()->getValues() as $produit) {
+            $total = $total + ($produit->getPrice() * $produit->getQuantity());
+            // dd($produit);
+        }
+        return $total;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

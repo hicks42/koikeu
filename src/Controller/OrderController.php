@@ -68,6 +68,7 @@ class OrderController extends AbstractController
             $delivery_content .= '<br/>' . $delivery->getCodePostal() . ' ' . $delivery->getCity();
             $delivery_content .= '<br/>' . $delivery->getCountry();
 
+            // Enregistrement de la commande : "Order()"
             $order = new Order();
             $order->setUser($this->getUser());
             $order->setCreatedAt($date);
@@ -78,6 +79,7 @@ class OrderController extends AbstractController
 
             $this->em->persist($order);
 
+            // Enregistrement des produits de la commande : "orderDetails()"
             foreach ($cart->getFull() as $produit) {
                 $orderDetails = new OrderDetails();
                 $orderDetails->setTheOrder($order);
@@ -89,7 +91,7 @@ class OrderController extends AbstractController
                 $this->em->persist($orderDetails);
             }
 
-            // $this->em->flush();
+            $this->em->flush();
 
             return $this->render('order/order_add.html.twig', [
                 'cart' => $cart->getFull(),
