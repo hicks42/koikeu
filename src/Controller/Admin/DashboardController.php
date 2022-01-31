@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\Order;
 use App\Entity\Carrier;
 use App\Entity\Produit;
 use App\Entity\Category;
@@ -23,7 +24,7 @@ class DashboardController extends AbstractDashboardController
         // redirect to some CRUD controller
         $routeBuilder = $this->get(AdminUrlGenerator::class);
 
-        return $this->redirect($routeBuilder->setController(ProduitCrudController::class)->generateUrl());
+        return $this->redirect($routeBuilder->setController(UserCrudController::class)->generateUrl());
 
         // you can also redirect to different pages depending on the current user
         // if ('jane' === $this->getUser()->getUsername()) {
@@ -40,6 +41,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
+        yield MenuItem::linkToCrud('Commandes', 'fa fa-cart-arrow-down', Order::class);
         yield MenuItem::linkToCrud('Produits', 'fa fa-box', Produit::class);
         yield MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class);
         yield MenuItem::linkToCrud('Tranporteur', 'fa fa-truck', Carrier::class);
