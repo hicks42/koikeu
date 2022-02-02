@@ -78,6 +78,6 @@ class Cart
 
   public function delete()
   {
-    $this->session->delete('cart');
+    $this->session->remove('cart');
   }
 }
