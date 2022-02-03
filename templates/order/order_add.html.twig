@@ -64,7 +64,7 @@
 				{# <a href="{{ path('commande') }}" id="checkout-button" class="btn btn-success w-100 mt-2">Payer
 				{{ ((total+ carrier.price) / 100 )|number_format(2, ',', '.') }}
 				€</a> #}
-				<form action="/commande/create-session" method="POST">
+				<form action="/commande/create-session/{{ reference }}" method="POST">
 					<button type="submit" id="checkout-button" class="btn btn-success w-100 mt-2">Payer
 						{{ ((total+ carrier.price) / 100 )|number_format(2, ',', '.') }}
 						€</button>
