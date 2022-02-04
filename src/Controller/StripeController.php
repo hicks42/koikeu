@@ -63,13 +63,23 @@ class StripeController extends AbstractController
                 // 'payment_method_types' => ['card'],
                 'line_items' => [$stripe_products],
                 'mode' => 'payment',
-                'success_url' => $this->generateUrl('success_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                'cancel_url' => $this->generateUrl('cancel_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                // 'success_url' => $this->generateUrl('success_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                // 'cancel_url' => $this->generateUrl('cancel_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
+
+                'success_url' => $YOUR_DOMAIN . '/commande/merci/{CHECKOUT_SESSION_ID}',
+                'cancel_url' => $YOUR_DOMAIN . '/commande/erreur/{CHECKOUT_SESSION_ID}',
+
             ]);
+
+            // dd($checkout_session->id);
+
+            $order->setStripeSessionId($checkout_session->id);
+            // dd($order); #works
+            $em->flush();
 
             // header("HTTP/1.1 303 See Other");
             // header("Location: " . $checkout_session->url);
-            //slim return $response->withHeader('Location', $session->url)->withStatus(303);
+            // slim return $response->withHeader('Location', $session->url)->withStatus(303);
 
             return $this->redirect($checkout_session->url, 303);
         }
