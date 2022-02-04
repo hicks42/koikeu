@@ -79,7 +79,8 @@ class ProduitCrudController extends AbstractCrudController
             ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
             ->overrideTemplate('crud/new', '/bundles/EasyAdminBundle/custom/produit_new.html.twig')
             ->overrideTemplate('crud/edit', '/bundles/EasyAdminBundle/custom/produit_edit.html.twig')
-
+            ->setDefaultSort(['id' => 'DESC'])->showEntityActionsInlined()
+            ->setPaginatorPageSize(10)
             // ->overrideTemplates([
             //     'crud/field/text' => 'admin/product/field_id.html.twig',
             //     'label/null' => 'admin/labels/null_product.html.twig',
