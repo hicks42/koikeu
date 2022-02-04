@@ -18,35 +18,30 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 	</head>
 	<body>
-    <header>
-		<div class="banner-homepage">
-			<div class="d-flex justify-content-center flex-column">
-				<a href="{{path('app_home')}}" class="mx-auto my-5">
-					<img src="/images/logo-koikeu-vert.jpg" height="150vh" alt="KoiKeu">
-				</a>
-				<div class="d-flex justify-content-center">
-					{{ render(controller('App\\Controller\\NavController::navbar')) }}
+		<header>
+			<div class="banner-homepage">
+				<div class="d-flex justify-content-center flex-column">
+					<a href="{{path('app_home')}}" class="mx-auto my-5">
+						<img src="/images/logo-koikeu-vert.jpg" height="150vh" alt="KoiKeu">
+					</a>
+					<div class="d-flex justify-content-center">
+						{{ render(controller('App\\Controller\\NavController::navbar')) }}
+					</div>
 				</div>
 			</div>
-		</div>
-    </header>
+		</header>
 		<main role="main">
-		<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-			{{ render(controller('App\\Controller\\NavController::carousel')) }}
-		</div>
-		{{ include('layout/partials/_message_flash.html.twig') }}
-
-			<!-- Marketing messaging and featurettes
-			    ================================================== -->
-			<!-- Wrap the rest of the page in another container to center all the content. -->
+			<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+				{{ render(controller('App\\Controller\\NavController::carousel')) }}
+			</div>
+			{{ include('layout/partials/_message_flash.html.twig') }}
 
 			<div
 				class="container marketing">
-
 				<!-- Three columns of text below the carousel -->
 				<div class="row">
 					<div class="col-lg-6 text-center my-2">
-						<img class="bd-placeholder-img rounded-circle" width="140" height="140"src="/images/hp-produits.jpg"/>
+						<img class="bd-placeholder-img rounded-circle" width="140" height="140" src="/images/hp-produits.jpg"/>
 						<h2>Les produits</h2>
 						<p>liste de nos produits.</p>
 						<p>
@@ -55,24 +50,25 @@
 					</div>
 					<!-- /.col-lg-4 -->
 					<div class="col-lg-6 text-center my-2">
-						<img class="bd-placeholder-img rounded-circle" width="140" height="140"src="/images/logo-koikeu.jpg"/>
+						<img class="bd-placeholder-img rounded-circle" width="140" height="140" src="/images/logo-koikeu.jpg"/>
 						<h2>Contactez moi</h2>
-						<p> Je vous répond le plus tôt possible.</p>
+						<p>
+							Je vous répond le plus tôt possible.</p>
 						<p>
 							<a class="btn btn-bgc1-tny" href="{{ path ('contact') }}" role="button">Contact &raquo;</a>
 						</p>
 					</div>
 					<!-- /.col-lg-4 -->
-					{# <div class="col-lg-4">
-						<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
-							<title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-						</svg>
-						<h2>Heading</h2>
-						<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-						<p>
-							<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
-						</p>
-					</div> #}
+				{# <div class="col-lg-4">
+										<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+										<title>Placeholder</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+										</svg>
+										<h2>Heading</h2>
+										<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+										<p>
+										<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
+										</p>
+										</div> #}
 					<!-- /.col-lg-4 -->
 				</div>
 				<!-- /.row -->
@@ -83,27 +79,13 @@
 				<hr class="featurette-divider">
 
 				<div class="row featurette">
-					<div class="col-md-7">
-						<h2 class="featurette-heading">Des produits fabriqués en France.
-							<span class="text-muted">Ils époustoufleront votre entourage.</span>
+					<div class="col-md-7 my-auto">
+						<h2 class="featurette-heading">L’art de créer des nœuds.
 						</h2>
-						<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+						<p class="lead">On a tous cherché des occupations pendant le confinement, pour ma part j’ai opté pour arrêter de me faire des nœuds au cerveau et je suis tombée dans la marmite du macramé.</p>
+						<p class="lead">Après de multiples tentatives entre laines peignés, torsadés, tressés… le premier modèle est né, ouvrant la voie à beaucoup d’inspirations. Je vous laisse découvrir les différentes créations que j’ai pu réaliser.</p>
 					</div>
 					<div class="col-md-5">
-						<img src="/images/france.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
-					</div>
-				</div>
-
-				<hr class="featurette-divider">
-
-				<div class="row featurette">
-					<div class="col-md-7 order-md-2">
-						<h2 class="featurette-heading">Une fabrication artisanale.
-							<span class="text-muted">Fait à la main.</span>
-						</h2>
-						<p class="lead">Ces produits sont fabriqués par moi même, dans l'atelier que j'ai aménagé à mon domicile dans le centre ville de Saint-Etienne.</p>
-					</div>
-					<div class="col-md-5 order-md-1">
 						<img src="/images/artisanale.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
 					</div>
 				</div>
@@ -111,13 +93,27 @@
 				<hr class="featurette-divider">
 
 				<div class="row featurette">
-					<div class="col-md-7">
+					<div class="col-md-7 order-md-2 my-auto">
+						<h2 class="featurette-heading">Une fabrication artisanale.</h2>
+						<p class="lead">C’est tout simplement dans ma maison, que je compose et créé, accompagnée parfois par mes adorateurs de laine que vous croiserez sur certaines photos.</p>
+						<p class="lead">Les laines que je travaille sont françaises et recyclées… et les bois flottés sont ramassés sur les plages de l’ile d’Oléron chaque été.</p>
+						<p class="lead">Tout est fait à la main, «made with love» comme tout le monde aime le dire.</p>
+					</div>
+					<div class="col-md-5 order-md-1">
+						<img src="/images/unique.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
+					</div>
+				</div>
+
+				<hr class="featurette-divider">
+
+				<div class="row featurette">
+					<div class="col-md-7 my-auto">
 						<h2 class="featurette-heading">Des produits uniques.
 						</h2>
-						<p class="lead">Même si les modèles sont bien défini. Chacun des articles que je produits sont absolument unique.</p>
+						<p class="lead">Ce site réunit les différentes créations que j’ai pu réaliser jusqu’à présent. Créations qui m’ont été inspirées par des personnes ou des lieux.</p>
 					</div>
 					<div class="col-md-5">
-						<img src="/images/unique.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
+						<img src="/images/france.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
 					</div>
 				</div>
 

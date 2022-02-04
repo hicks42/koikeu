@@ -2,6 +2,10 @@
 
 {% block title %}Paiement de commande
 {% endblock %}
+{% block javascripts %}
+	<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+	<script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
 
 {% block body %}
 
@@ -30,36 +34,42 @@
 							<div class="col-2">
 								<img src="{{ (item.produit.imageName ? vich_uploader_asset(item.produit) : asset('build/images/placeholder.jpg')) | imagine_filter('square_thumbnail_mini') }}">
 							</div>
-							<div class="col-8 my-auto mt-2">
-								{{ item.produit.name }}
+							<div class="col-7 my-auto mt-2">
+								{{ item.produit.name }}<br>
+								x
+								{{ item.quantity }}
 							</div>
-							<div class="col-2 my-auto mt-2">
-								<small>
-									x
-									{{ item.quantity }}
-								</small>
+							<div class="col-3 my-auto mt-3">
+								<strong>{{ ((item.produit.price * item.quantity) / 100)|number_format(2, ',', '.') }}
+									€</strong>
 							</div>
-							<div class="col-6 my-auto">{{ ((item.produit.price * item.quantity) / 100)|number_format(2, ',', '.') }}
-								€</div>
 						</div>
 						{% set total = total + (item.produit.price * item.quantity) %}
 					{% endfor %}
 				</div>
 				<hr>
-				<strong>Sous total :
-					{{ (total / 100)|number_format(2, ',', '.') }}
-					€</strong><br>
-				<strong>Livraison :
-					{{ (carrier.price / 100)|number_format(2, ',', '.') }}
-					€</strong><br>
-				<hr>
-				<strong>Total :
-					{{ ((total+ carrier.price) / 100 )|number_format(2, ',', '.') }}
-					€
-				</strong>
-				<a href="{{ path('commande') }}" class="btn btn-success w-100 mt-2">Payer
-					{{ ((total+ carrier.price) / 100 )|number_format(2, ',', '.') }}
-					€</a>
+				<div class="text-end">
+					Sous total :
+					<strong>{{ (total / 100)|number_format(2, ',', '.') }}
+						€</strong><br>
+					Livraison :
+					<strong>{{ (carrier.price / 100)|number_format(2, ',', '.') }}
+						€</strong><br>
+					<hr>
+					Total :
+					<strong>{{ ((total+ carrier.price) / 100 )|number_format(2, ',', '.') }}
+						€
+					</strong>
+				</div>
+				{# <a href="{{ path('commande') }}" id="checkout-button" class="btn btn-success w-100 mt-2">Payer
+																																{{ ((total+ carrier.price) / 100 )|number_format(2, ',', '.') }}
+																																€</a> #}
+				<form action="/commande/create-session/{{ reference }}" method="POST">
+					<button type="submit" id="checkout-button" class="btn btn-success w-100 mt-2">Payer
+						<strong>{{ ((total+ carrier.price) / 100 )|number_format(2, ',', '.') }}
+							€</strong>
+					</button>
+				</form>
 			</div>
 		</div>
 	</div>

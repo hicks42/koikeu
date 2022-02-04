@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande confirmée!
+{% endblock %}
+
+{% block body %}
+	<div class="center_column col-xs-6 col-sm-12">
+		<h1>Le payment de votre commande est validé! ✅</h1>
+		<p>
+			Bonjour
+			{{ order.user.fullname }}
+			<br>
+			Nous vous remerçions pour votre commande N°
+			{{ order.reference }}<br>
+			Une confirmation vous a été envoyé par e-mail à l'adresse :
+			<b>{{ order.user.email }}</b>
+			<hr>
+			Votre commande sera livré par
+			{{ order.carrierName }}
+			à l'adresse suivante :
+			<br>
+			{{ order.delivery|raw }}
+		</p>
+	</div>
+{% endblock %}

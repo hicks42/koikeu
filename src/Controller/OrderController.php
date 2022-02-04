@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use DateTime;
+use Stripe\Stripe;
 use App\Classe\Cart;
 use App\Entity\Order;
-use App\Entity\OrderDetails;
-use App\Form\OrderType;
-use DateTime;
 use DateTimeImmutable;
+use App\Form\OrderType;
+use App\Entity\OrderDetails;
+use Stripe\Checkout\Session;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +47,7 @@ class OrderController extends AbstractController
     /**
      * @Route("/commande/recapitulatif", name="commande_recap", methods={"POST"})
      */
-    public function recap(Cart $cart, Request $request, EntityManagerInterface $em)
+    public function recap(Cart $cart, Request $request, EntityManagerInterface $em, $stripeSK)
     {
         $form = $this->createForm(OrderType::class, null, [
             'user' => $this->getUser()
@@ -68,8 +70,9 @@ class OrderController extends AbstractController
             $delivery_content .= '<br/>' . $delivery->getCodePostal() . ' ' . $delivery->getCity();
             $delivery_content .= '<br/>' . $delivery->getCountry();
 
-            // Enregistrement de la commande : "Order()"
             $order = new Order();
+            $reference = $date->format('dmy') . '_' . uniqid();
+            $order->setReference($reference);
             $order->setUser($this->getUser());
             $order->setCreatedAt($date);
             $order->setCarrierName($carrier->getName());
@@ -79,7 +82,8 @@ class OrderController extends AbstractController
 
             $this->em->persist($order);
 
-            // Enregistrement des produits de la commande : "orderDetails()"
+            // dd($order->getorderDetails()->getValues());
+
             foreach ($cart->getFull() as $produit) {
                 $orderDetails = new OrderDetails();
                 $orderDetails->setTheOrder($order);
@@ -96,7 +100,8 @@ class OrderController extends AbstractController
             return $this->render('order/order_add.html.twig', [
                 'cart' => $cart->getFull(),
                 'carrier' => $carrier,
-                'delivery' => $delivery_content
+                'delivery' => $delivery_content,
+                'reference' => $order->getReference(),
             ]);
         }
 
