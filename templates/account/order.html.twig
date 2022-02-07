@@ -4,63 +4,72 @@
 {% endblock %}
 
 {% block body %}
-
 	<div class="example-wrapper">
-		<h1>Detail de la Commande
-		</h1>
-		<hr>
+		<h1>Detail de la Commande</h1>
 		<div class="row">
-			<div class=" col-md-12">
-				<div class="col-form-label">Récapitulatif de la commande</div>
-				<div class="order-summary">
-					Commande N°<strong>{{reference}}</strong><br>
-					Commande passée le :
-					<strong>{{order.createdAT|date('d/m/y')}}</strong><br>
-					Transporteur :
-					<strong>{{order.carrierName}}</strong>
-				</div>
-				<hr>
-				<h4>Details de la commande :</h4>
-				<a href="{{path('account_order')}}">Retour<a>
-
-						<hr>
-						<table class="table">
-							<thead>
+			<div class="col-form-label">Récapitulatif :</div>
+			<hr>
+			<div class="col-6">
+				Commande N°<strong>{{reference}}</strong>
+				<br>
+				Commande passée le :
+				<strong>{{order.createdAT|date('d/m/y')}}</strong><br>
+				Transporteur :
+				<strong>{{order.carrierName}}</strong><br>
+			</div>
+			<div class="col-6 text-end">
+				Statut :
+				<span class="badge bg-info">
+					{% if order.status == 1 %}
+						Paiement accepté.
+					{% elseif order.status == 2 %}
+						Commande en préparation.
+					{% elseif order.status == 3 %}
+						Livraison en cours
+					{% endif %}
+				</span>
+			</div>
+			<hr>
+			<h4>Details de la commande :</h4>
+			<a href="{{path('account_order')}}">Retour<a>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Article</th>
+								<th scope="col">Prix unit.</th>
+								<th scope="col">Quantité</th>
+								<th scope="col">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for key,item in order.orderDetails %}
 								<tr>
-									<th scope="col">Article</th>
-									<th scope="col">Prix unit.</th>
-									<th scope="col">Quantité</th>
-									<th scope="col">Total</th>
+									<th scope="row">{{ item.product }}</th>
+									<td>{{ ((item.price)/100)|number_format(2, ',', '.') }}
+										€</td>
+									<td>x
+										{{ item.quantity }}</td>
+									<td>{{ ((item.total)/100)|number_format(2, ',', '.') }}
+										€</td>
 								</tr>
-							</thead>
-							<tbody>
-								{% for key,item in order.orderDetails %}
-									<tr>
-										<th scope="row">{{ item.product }}</th>
-										<td>{{ ((item.price)/100)|number_format(2, ',', '.') }}
-											€</td>
-										<td>x
-											{{ item.quantity }}</td>
-										<td>{{ ((item.total)/100)|number_format(2, ',', '.') }}
-											€</td>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-						<div class="text-end">
-							Sous total :
-							<strong>{{ (order.total / 100)|number_format(2, ',', '.') }}
-								€</strong><br>
-							Livraison :
-							<strong>{{ (order.carrierPrice / 100)|number_format(2, ',', '.') }}
-								€</strong><br>
-							<hr>
-							Total :
-							<strong>{{ ((order.total + order.carrierPrice) / 100 )|number_format(2, ',', '.') }}
-								€
-							</strong>
-						</div>
+							{% endfor %}
+						</tbody>
+					</table>
+					<div class="text-end">
+						Sous total :
+						<strong>{{ (order.total / 100)|number_format(2, ',', '.') }}
+							€</strong><br>
+						Livraison :
+						<strong>{{ (order.carrierPrice / 100)|number_format(2, ',', '.') }}
+							€</strong><br>
+						<hr>
+						Total :
+						<strong>{{ ((order.total + order.carrierPrice) / 100 )|number_format(2, ',', '.') }}
+							€
+						</strong>
 					</div>
 				</div>
 			</div>
-		{% endblock %}
+		</div>
+	</div>
+{% endblock %}

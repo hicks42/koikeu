@@ -60,7 +60,7 @@ class ProduitCrudController extends AbstractCrudController
                 ->onlyOnForms()
                 ->setColumns(12),
             CollectionField::new('attachments')
-                ->setTemplatePath('attachment.html.twig')
+                ->setTemplatePath('admin/fields/attachment.html.twig')
                 ->onlyOnDetail()
                 ->setColumns(12),
         ];
