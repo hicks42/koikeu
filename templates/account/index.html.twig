@@ -8,11 +8,11 @@
 	<div class="example-wrapper">
 		<h1>Mon compte</h1>
 
-		Gestion de mon compte:
-		<ul>
-			<li><ahref="{{ path('app_account_show') }}">Voir et editer mon compte</a></li>
-			<li><ahref="{{ path('account_addresses') }}">Gerer mes adresses</a></li>
-			<li><ahref="{{ path('account_order') }}">Voir mes commandes</a></li>
-		</ul>
+		<h3>Gestion de mon compte:</h3>
+		<p>
+			<a href="{{path('app_account_show')}}">Voir et editer mon compte</a><br>
+			<a href="{{path('account_addresses')}}">Gerer mes adresses</a><br>
+			<a href="{{path('account_order')}}">Voir mes commandes</a>
+		</p>
 	</div>
 {% endblock %}

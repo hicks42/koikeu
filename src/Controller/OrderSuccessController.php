@@ -27,11 +27,11 @@ class OrderSuccessController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        if (!$order->getIsPaid()) {
+        if ($order->getStatus() == 0) {
 
             $cart->delete();
 
-            $order->setIsPaid(1);
+            $order->setStatus(1);
             $this->em->flush();
         }
 
